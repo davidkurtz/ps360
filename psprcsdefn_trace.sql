@@ -7,11 +7,12 @@ DEF descrlong = 'Setting trace on the process definition overrides the definitio
 
 BEGIN
   :sql_text := '
-SELECT rownum, t.*
+SELECT row_number() over (order by prcstype, prcsname) row_num
+     , t.*
   FROM &&table_name t
  WHERE UPPER(parmlist) LIKE ''%-%TRACE%''
    AND parmlisttype IN(''1'',''2'',''3'')
-ORDER BY prcstype, prcsname
+ORDER BY row_num
 '; 
 END;				
 /
