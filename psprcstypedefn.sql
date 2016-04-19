@@ -4,10 +4,11 @@ DEF recname = 'PRCSTYPEDEFN'
 
 BEGIN
   :sql_text := '
-SELECT rownum, t.*
+SELECT row_number() over (order by dbtype, opsys, prcstype) row_num
+     , t.*
   FROM &&table_name t
-WHERE dbtype = ''2''
-ORDER BY dbtype, opsys, prcstype'; 
+WHERE  dbtype = ''2''
+ORDER BY row_num'; 
 END;				
 /
 
