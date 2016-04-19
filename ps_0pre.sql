@@ -44,5 +44,10 @@ DEF report_abstract_2 = "";
 DEF report_abstract_3 = "";
 DEF report_abstract_4 = "";
 
+DEF chart_foot_note_1 = "<br>";
+DEF chart_foot_note_2 = ""; 
+DEF chart_foot_note_3 = "";
+DEF chart_foot_note_4 = "";
+
 DEF separator="\";
 DEF delete="rm";

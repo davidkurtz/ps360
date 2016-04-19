@@ -16,17 +16,9 @@ DEF piespool = "&&ps_prefix._&&psdbname._&&repcol._&&section..&&htmlsuffix";
 
 DEF report_title = "&&section: &&recdescr";
 DEF report_abstract_1 = "<br>&&descrlong";
-DEF report_abstract_2 = "";
-DEF report_abstract_3 = "";
-DEF report_abstract_4 = "";
 
 DEF chart_title = "&&report_title";
-DEF chart_foot_note_1 = "<br>";
-DEF chart_foot_note_2 = ""; 
-DEF chart_foot_note_3 = "";
-DEF chart_foot_note_4 = "";
 DEF report_foot_note = "This is a Google piechart report.";
-
 
 SPO &&piespool;
 PRO <head>
@@ -90,4 +82,10 @@ PRO </body>
 PRO </html>
 
 SPO OFF;
+
+DEF chart_foot_note_1 = "<br>";
+DEF chart_foot_note_2 = ""; 
+DEF chart_foot_note_3 = "";
+DEF chart_foot_note_4 = "";
+
 ROLLBACK;

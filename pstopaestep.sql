@@ -4,6 +4,7 @@ DEF recname = 'BAT_TIMINGS_DTL'
 DEF lrecname = '&&lrecname._top&&date_filter_suffix'
 DEF recdescr = '&&recdescr. Application Engine steps profiled by time &&date_filter_desc'
 DEF descrlong = 'Application Engine step batch timings, aggregated by step and profiled by total time &&date_filter_desc'
+DEF report_abstract_2 = '<br>Requires batch timings to be written to database - set TraceAE=1024 in Process Scheduler configuration';
 
 BEGIN
   :sql_text_stub := '

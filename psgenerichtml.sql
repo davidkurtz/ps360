@@ -3,6 +3,42 @@ set head off
 break on report
 SPOOL OFF
 
+REM put xlat values in the plan table
+declare
+  l_recname VARCHAR2(15) := '&&recname';
+  l_xlatstring VARCHAR2(4000);
+begin
+  DELETE FROM plan_table 
+  WHERE  statement_id = l_recname;
+
+  for i in (
+    SELECT f.fieldnum, x.fieldvalue, x.xlatlongname
+    ,      row_number() over (partition by f.fieldnum ORDER BY x.fieldvalue) seq
+    ,      row_number() over (partition by f.fieldnum ORDER BY x.fieldvalue DESC) qes
+    FROM   psrecfielddb f
+    ,      psxlatitem x
+    WHERE  f.recname = l_recname
+    AND    x.fieldname = f.fieldname
+    AND    x.eff_status = 'A'
+    AND    x.effdt = (SELECT MAX(x1.effdt)
+                      FROM   psxlatitem x1
+                      WHERE  x1.fieldname = f.fieldname
+                      AND    x1.effdt <= SYSDATE)
+    ORDER BY f.fieldnum, x.fieldvalue
+  ) LOOP
+    IF i.seq = 1 THEN
+      l_xlatstring := i.fieldvalue||' = '||i.xlatlongname;
+    ELSE
+      l_xlatstring := l_xlatstring||'<br/>'||i.fieldvalue||' = '||i.xlatlongname;
+    END IF;
+    IF i.qes = 1 THEN
+      INSERT INTO plan_table (statement_id, plan_id, remarks)
+      VALUES (l_recname, i.fieldnum, l_xlatstring);
+    END IF;
+  END LOOP;
+end;
+/
+
 EXEC :sql_text_display := REPLACE(REPLACE(TRIM(CHR(10) FROM :sql_text)||';', '<', CHR(38)||'lt;'), '>', CHR(38)||'gt;');
 
 PRO
@@ -56,8 +92,10 @@ PRO <script type="text/javascript" src="sorttable.js"></script>
 PRO </head>
 PRO <body>
 PRO <h1>&&ps_report_prefix &&report_title.</h1>
-PRO &&descrlong
+PRO &&report_abstract_1
 PRO &&report_abstract_2
+PRO &&report_abstract_3
+PRO &&report_abstract_4
 PRO <br />
 
 -- body
@@ -71,26 +109,13 @@ PRO  #: click on a column heading to sort on it
 PRO <pre>
 COLUMN descrlong FORMAT a50 wrap on
 SET head on pages 50000 MARK HTML ON TABLE "class=sortable" ENTMAP ON
-WITH x AS (
-SELECT /*+MATERIALIZE*/ x.fieldname, x.fieldvalue, x.xlatshortname, x.xlatlongname
-,      ROW_NUMBER() OVER (PARTITION BY x.fieldname ORDER BY x.fieldvalue) AS curr
-,      ROW_NUMBER() OVER (PARTITION BY x.fieldname ORDER BY x.fieldvalue)-1 AS prev
-FROM   psxlatitem x
-WHERE  x.eff_status = 'A'
-AND    x.effdt = (SELECT MAX(x1.effdt)
-                  FROM   psxlatitem x1
-                  WHERE  x1.fieldname = x.fieldname
-                  AND    x1.effdt <= SYSDATE)
-)
 select f.fieldnum, f.fieldname, l.longname
 ,      RTRIM(d.descrlong) descrlong
-,      (
-       SELECT SUBSTR(LTRIM(MAX(SYS_CONNECT_BY_PATH(fieldvalue||'='||xlatlongname,'<br/>')) KEEP (DENSE_RANK LAST ORDER BY curr),','),6)
-       FROM   x
-       CONNECT BY prev = PRIOR curr AND fieldname = PRIOR fieldname
-       START WITH curr = 1 AND x.fieldname = f.fieldname
-       ) remarks
+,      x.remarks
 from   psrecfielddb f
+	   left outer join plan_table x
+	   on x.statement_id = f.recname
+	   and x.plan_id = f.fieldnum
 	   left outer join psdbfldlabl l
 	   on l.fieldname = f.fieldname
 	   and l.default_label = 1         
@@ -111,6 +136,7 @@ PRO </body>
 PRO </html>
 
 SPO OFF;
+DEF report_abstract_1 = "";
 DEF report_abstract_2 = "";
 DEF report_abstract_3 = "";
 DEF report_abstract_4 = "";

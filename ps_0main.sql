@@ -64,7 +64,7 @@ PRO <body>
 PRO <h1>PS360: PeopleSoft Configuration and Metrics</h1>
 
 PRO <pre>
-PRO dbname:&&database_name_short. version:&&db_version. host:&&host_name_short. PT version:&&toolsrel. today:&&ps360_time_stamp.
+PRO version:0002 dbname:&&database_name_short. version:&&db_version. host:&&host_name_short. PT version:&&toolsrel. today:&&ps360_time_stamp.
 PRO </pre>
 
 PRO <table><tr class="main">
@@ -110,7 +110,7 @@ DEF date_filter_desc="(1 day)"
 DEF date_filter_suffix="_1d"
 @@pstopprcs
 DEF date_filter_sql="AND enddttm>=SYSDATE-7 AND TO_CHAR(enddttm,''D'') >= ''&&ps360_conf_work_day_from'' AND TO_CHAR(begindttm,''D'') <= ''&&ps360_conf_work_day_to'' AND TO_CHAR(enddttm, ''HH24'') >= ''&&ps360_conf_work_time_from'' AND TO_CHAR(begindttm, ''HH24'') <= ''&&ps360_conf_work_time_to''"
-DEF date_filter_desc="(5 days)"
+DEF date_filter_desc="(5 working days)"
 DEF date_filter_suffix="_5d"
 @@pstopprcs
 DEF date_filter_sql="AND enddttm>=SYSDATE-7"
@@ -118,7 +118,7 @@ DEF date_filter_desc="(1 week)"
 DEF date_filter_suffix="_1w"
 @@pstopprcs
 DEF date_filter_sql="AND enddttm>=SYSDATE-28 AND TO_CHAR(enddttm,''D'') >= ''&&ps360_conf_work_day_from'' AND TO_CHAR(begindttm,''D'') <= ''&&ps360_conf_work_day_to'' AND TO_CHAR(enddttm, ''HH24'') >= ''&&ps360_conf_work_time_from'' AND TO_CHAR(begindttm, ''HH24'') <= ''&&ps360_conf_work_time_to''"
-DEF date_filter_desc="(4 weeks)"
+DEF date_filter_desc="(4 working weeks)"
 DEF date_filter_suffix="_4w"
 @@pstopprcs
 DEF date_filter_sql="AND enddttm>=ADD_MONTHS(SYSDATE,-1)"
@@ -138,7 +138,7 @@ DEF date_filter_desc="(1 day)"
 DEF date_filter_suffix="_1d"
 @@pstopae
 DEF date_filter_sql="WHERE enddttm>=SYSDATE-7 AND TO_CHAR(enddttm,''D'') >= ''&&ps360_conf_work_day_from'' AND TO_CHAR(begindttm,''D'') <= ''&&ps360_conf_work_day_to'' AND TO_CHAR(enddttm, ''HH24'') >= ''&&ps360_conf_work_time_from'' AND TO_CHAR(begindttm, ''HH24'') <= ''&&ps360_conf_work_time_to''"
-DEF date_filter_desc="(5 days)"
+DEF date_filter_desc="(5 working days)"
 DEF date_filter_suffix="_5d"
 @@pstopae
 DEF date_filter_sql="WHERE enddttm>=SYSDATE-7"
@@ -146,7 +146,7 @@ DEF date_filter_desc="(1 week)"
 DEF date_filter_suffix="_1w"
 @@pstopae
 DEF date_filter_sql="WHERE enddttm>=SYSDATE-28 AND TO_CHAR(enddttm,''D'') >= ''&&ps360_conf_work_day_from'' AND TO_CHAR(begindttm,''D'') <= ''&&ps360_conf_work_day_to'' AND TO_CHAR(enddttm, ''HH24'') >= ''&&ps360_conf_work_time_from'' AND TO_CHAR(begindttm, ''HH24'') <= ''&&ps360_conf_work_time_to''"
-DEF date_filter_desc="(4 weeks)"
+DEF date_filter_desc="(4 working weeks)"
 DEF date_filter_suffix="_4w"
 @@pstopae
 DEF date_filter_sql="WHERE enddttm>=ADD_MONTHS(SYSDATE,-1)"
@@ -166,7 +166,7 @@ DEF date_filter_desc="(1 day)"
 DEF date_filter_suffix="_1d"
 @@pstopaestep
 DEF date_filter_sql="AND enddttm>=SYSDATE-7 AND TO_CHAR(enddttm,''D'') >= ''&&ps360_conf_work_day_from'' AND TO_CHAR(begindttm,''D'') <= ''&&ps360_conf_work_day_to'' AND TO_CHAR(enddttm, ''HH24'') >= ''&&ps360_conf_work_time_from'' AND TO_CHAR(begindttm, ''HH24'') <= ''&&ps360_conf_work_time_to''"
-DEF date_filter_desc="(5 days)"
+DEF date_filter_desc="(5 working days)"
 DEF date_filter_suffix="_5d"
 @@pstopaestep
 DEF date_filter_sql="AND enddttm>=SYSDATE-7"
@@ -174,7 +174,7 @@ DEF date_filter_desc="(1 week)"
 DEF date_filter_suffix="_1w"
 @@pstopaestep
 DEF date_filter_sql="AND enddttm>=SYSDATE-28 AND TO_CHAR(enddttm,''D'') >= ''&&ps360_conf_work_day_from'' AND TO_CHAR(begindttm,''D'') <= ''&&ps360_conf_work_day_to'' AND TO_CHAR(enddttm, ''HH24'') >= ''&&ps360_conf_work_time_from'' AND TO_CHAR(begindttm, ''HH24'') <= ''&&ps360_conf_work_time_to''"
-DEF date_filter_desc="(4 weeks)"
+DEF date_filter_desc="(4 working weeks)"
 DEF date_filter_suffix="_4w"
 @@pstopaestep
 DEF date_filter_sql="AND enddttm>=ADD_MONTHS(SYSDATE,-1)"
