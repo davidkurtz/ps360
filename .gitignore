@@ -224,7 +224,7 @@ pip-log.txt
 *.lst
 *.zip
 *.old
-zia*
+*.html
+zi*
 pstemp.sql
 ps360_*_2*_*
-
