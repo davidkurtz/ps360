@@ -4,9 +4,10 @@ DEF recname = 'PRCSDEFN'
 
 BEGIN
   :sql_text := '
-SELECT rownum, t.*
+SELECT row_number() over (order by prcstype, prcsname) row_num
+     , t.*
   FROM &&table_name t
-ORDER BY prcstype, prcsname
+ORDER BY row_num
 '; 
 END;				
 /
