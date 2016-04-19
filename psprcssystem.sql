@@ -4,10 +4,10 @@ DEF recname = 'PRCSSYSTEM'
 
 BEGIN
   :sql_text := '
-SELECT rownum
+SELECT row_number() over (order by opsys) row_num
 , t.*
   FROM &&table_name t
-ORDER BY rownum
+ORDER BY row_num
 '; 
 END;				
 /
