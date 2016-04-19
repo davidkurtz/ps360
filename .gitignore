@@ -224,3 +224,4 @@ pstemp.sql
 *.html
 *.zip
 zi*
+.git*
