@@ -31,6 +31,7 @@ SELECT row_number() over (order by object_name, id) row_num
 , t.id SELECTOR_NUM
 , t.cost NUM_ROWS
   FROM plan_table t
+ WHERE statement_id = ''PSTREESELECTORPHAN''
 ORDER BY row_num
 '; 
 END;				
