@@ -220,10 +220,7 @@ pip-log.txt
 #################
 *.lnk
 *.html
-<<<<<<< HEAD
-=======
 *.old
->>>>>>> refs/remotes/origin/cnafixes
 *.lst
 *.zip
 pstemp.sql
