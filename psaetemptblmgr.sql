@@ -12,7 +12,7 @@ SELECT row_number() over (order by recname, curtempinstance) row_num
      SELECT ''x''
      FROM   psprcsrqst r 
      WHERE  r.prcsinstance = t.process_instance
-     AND    r.runstatus = ''9'')
+     AND    r.runstatus = ''7'')
 ORDER BY row_num
 '; 
 END;				
