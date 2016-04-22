@@ -12,3 +12,6 @@ DEF ps360_conf_work_day_to = '6';
 -- see https://developers.google.com/chart/interactive/docs/gallery/piechart#slice-visibility-threshold
 DEF ps_360_PieSliceVisThreshold = '.02';
 
+--
+DEF datetimefmt='dd.mm.yyyy hh24:mi:ss';
+DEF datefmt='dd.mm.yyyy';

@@ -64,7 +64,7 @@ PRO <body>
 PRO <h1>PS360: PeopleSoft Configuration and Metrics</h1>
 
 PRO <pre>
-PRO version:0004 dbname:&&database_name_short. version:&&db_version. host:&&host_name_short. PT version:&&toolsrel. today:&&ps360_time_stamp.
+PRO version:0005 dbname:&&database_name_short. version:&&db_version. host:&&host_name_short. PT version:&&toolsrel. today:&&ps360_time_stamp.
 PRO </pre>
 
 PRO <table><tr class="main">
@@ -129,6 +129,14 @@ DEF date_filter_sql=""
 DEF date_filter_desc="(All)"
 DEF date_filter_suffix=""
 @@pstopprcs
+
+SPOOL &&ps360_main_report..html APP
+PRO <h2>Process Scheduler Queueing</h2>
+REM 1 day
+DEF date_filter_sql="AND enddttm>=SYSDATE-1"
+DEF date_filter_desc="(1 day)"
+DEF date_filter_suffix="_1d"
+@@psprcsqueue
 
 SPOOL &&ps360_main_report..html APP
 PRO <h2>Application Engine Batch Timings</h2>
