@@ -10,7 +10,7 @@ SPOOL &&ps360_main_report..html APP
 PRO <li title="&&section">&&report_title
 SELECT ' <a href="&&htmlspool">html</a>' FROM dual WHERE '&&htmlspool' IS NOT NULL;
 SELECT ' <a href="&&piespool">pie</a>'  FROM dual WHERE '&&piespool'  IS NOT NULL;
-SELECT ' <a href="&&linespool">line</a>' FROM dual WHERE '&&linespool' IS NOT NULL;
+SELECT ' <a href="&&linespool">chart</a>' FROM dual WHERE '&&linespool' IS NOT NULL;
 PRO (&&row_num)</li>
 SPOOL OFF
 DEF htmlspool="";

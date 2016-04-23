@@ -1,9 +1,10 @@
 REM psprcsqueue.sql
 DEF recname = 'PSPRCSRQST'
 @@psrecdefn
-DEF lrecname = '&&lrecname._queueing&&date_filter_suffix'
+DEF lrecname = '&&lrecname._queuing&&date_filter_suffix'
 DEF recdescr = '&&recdescr. &&date_filter_desc'
-DEF descrlong = 'Time Process Scheduler Requests spend queued &&date_filter_desc'
+DEF descrlong= 'Time Process Scheduler Requests spend queued &&date_filter_desc'
+DEF charttype= "ScatterChart";
 
 BEGIN
   :sql_text_stub := '

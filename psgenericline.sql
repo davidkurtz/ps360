@@ -50,7 +50,7 @@ PRO tooltip: {textStyle: {fontSize: 14}},
 PRO focusTarget: 'category',
 PRO };
 
-PRO var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+PRO var chart = new google.visualization.&&charttype.(document.getElementById('chart_div'));
 PRO chart.draw(data, options);
 PRO }
 

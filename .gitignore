@@ -224,3 +224,4 @@ pip-log.txt
 *.lst
 *.zip
 pstemp.sql
+zi*

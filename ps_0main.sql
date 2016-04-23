@@ -10,6 +10,7 @@ DEF ps_report_prefix = "PeopleSoft:"
 DEF section = "main";
 DEF htmlsuffix = "html";
 DEF max_col_number=3
+DEF charttype="LineChart";
 
 VAR old_module VARCHAR2(64)
 VAR old_action VARCHAR2(64)
