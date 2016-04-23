@@ -225,3 +225,4 @@ pip-log.txt
 *.zip
 pstemp.sql
 zi*
+ps360_*_*_*
