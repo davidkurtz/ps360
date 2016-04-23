@@ -137,6 +137,18 @@ DEF date_filter_sql="AND enddttm>=SYSDATE-1"
 DEF date_filter_desc="(1 day)"
 DEF date_filter_suffix="_1d"
 @@psprcsqueue
+DEF date_filter_sql="AND enddttm>=SYSDATE-7"
+DEF date_filter_desc="(1 week)"
+DEF date_filter_suffix="_1w"
+@@psprcsqueue
+DEF date_filter_sql="AND enddttm>=ADD_MONTHS(SYSDATE,-1)"
+DEF date_filter_desc="(1 month)"
+DEF date_filter_suffix="_1m"
+@@psprcsqueue
+DEF date_filter_sql=""
+DEF date_filter_desc="(All)"
+DEF date_filter_suffix=""
+@@psprcsqueue
 
 SPOOL &&ps360_main_report..html APP
 PRO <h2>Application Engine Batch Timings</h2>
