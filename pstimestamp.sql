@@ -1,5 +1,6 @@
 REM pstimestamp.sql
 SPOOL OFF
+exec dbms_application_info.set_action('&&recname');
 
 column ps360_time_stamp NEW_VALUE ps360_time_stamp
 COLUMN hh_mm_ss   NEW_VALUE hh_mm_ss

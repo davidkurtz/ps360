@@ -1,5 +1,5 @@
 REM ps_0main.sql
-SET TERM OFF MARK HTML OFF HEA OFF LIN 32767 NEWP NONE PAGES 0 FEED OFF ECHO OFF VER OFF LONG 32000 LONGC 2000 WRA ON TRIMS ON TRIM ON TI OFF TIMI OFF ARRAY 100 NUM 20 SQLBL ON BLO . RECSEP OFF;
+SET TERM OFF MARK HTML OFF HEA OFF LIN 32767 NEWP NONE PAGES 0 FEED OFF ECHO OFF VER OFF LONG 32000 LONGC 2000 WRA ON TRIMS ON TRIM ON TI OFF TIMI OFF ARRAY 100 NUM 20 SQLBL ON BLO . RECSEP OFF pause off
 DEF ps_echo_off = "off"
 DEF ps_term_off = "off"
 
@@ -13,11 +13,11 @@ DEF htmlsuffix = "html";
 DEF max_col_number=3
 DEF charttype="LineChart";
 
-VAR old_module VARCHAR2(64)
-VAR old_action VARCHAR2(64)
 VAR sql_text_stub VARCHAR2(4000)
 VAR sql_text VARCHAR2(4000)
 VAR sql_text_display VARCHAR2(4000)
+VAR old_module VARCHAR2(64)
+VAR old_action VARCHAR2(64)
 
 BEGIN
  dbms_application_info.read_module(:old_module,:old_action);
