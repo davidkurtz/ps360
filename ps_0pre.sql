@@ -35,6 +35,7 @@ COL max_ps_agent_dttm NEW_V max_ps_agent_dttm
 SELECT 'TO_DATE('''||TO_CHAR(TRUNC(MAX(pm_agent_dttm)+1),'YYYYMMDD')||''',''YYYYMMDD'')' max_ps_agent_dttm
 FROM   pspmeventhist;
 
+DEF lrecname="";
 DEF row_num="";
 DEF piespool="";
 DEF linespool="";
