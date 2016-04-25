@@ -32,6 +32,7 @@ SELECT qryname
 ,      SUM(secs) sum_secs
 ,      AVG(secs) avg_secs
 ,      MEDIAN(secs) med_secs
+,      VARIANCE(secs) var_secs
 ,      MAX(secs) max_secs
 FROM   x
 GROUP BY qryname
@@ -44,6 +45,7 @@ column execs    heading 'Number of|Executions'
 column sum_secs heading 'Total|Execution|Time (s)'
 column avg_secs heading 'Average|Execution|Time (s)' format 99999.9
 column med_secs heading 'Median|Execution|Time (s)'  format 99999.9
+column var_secs heading 'Variance|Execution|Time (s)'  format 99999.9
 column max_secs heading 'Maximum|Execution|Time (s)'
 
 DEF piex="Query Name"

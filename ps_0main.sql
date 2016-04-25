@@ -211,23 +211,23 @@ DEF date_filter_suffix=""
 SPOOL &&ps360_main_report..html APP
 PRO <h2>Schedueled PS/Query</h2>
 REM 1 day
-DEF date_filter_sql="AND enddttm>=SYSDATE-1"
+DEF date_filter_sql="AND r.enddttm>=SYSDATE-1"
 DEF date_filter_desc="(1 day)"
 DEF date_filter_suffix="_1d"
 @@pstopaepsquery
-DEF date_filter_sql="AND enddttm>=SYSDATE-7 AND TO_CHAR(enddttm,''D'') >= ''&&ps360_conf_work_day_from'' AND TO_CHAR(begindttm,''D'') <= ''&&ps360_conf_work_day_to'' AND TO_CHAR(enddttm, ''HH24'') >= ''&&ps360_conf_work_time_from'' AND TO_CHAR(begindttm, ''HH24'') <= ''&&ps360_conf_work_time_to''"
+DEF date_filter_sql="AND r.enddttm>=SYSDATE-7 AND TO_CHAR(r.enddttm,''D'') >= ''&&ps360_conf_work_day_from'' AND TO_CHAR(r.begindttm,''D'') <= ''&&ps360_conf_work_day_to'' AND TO_CHAR(r.enddttm, ''HH24'') >= ''&&ps360_conf_work_time_from'' AND TO_CHAR(r.begindttm, ''HH24'') <= ''&&ps360_conf_work_time_to''"
 DEF date_filter_desc="(5 working days)"
 DEF date_filter_suffix="_5d"
 @@pstopaepsquery
-DEF date_filter_sql="AND enddttm>=SYSDATE-7"
+DEF date_filter_sql="AND r.enddttm>=SYSDATE-7"
 DEF date_filter_desc="(1 week)"
 DEF date_filter_suffix="_1w"
 @@pstopaepsquery
-DEF date_filter_sql="AND enddttm>=SYSDATE-28 AND TO_CHAR(enddttm,''D'') >= ''&&ps360_conf_work_day_from'' AND TO_CHAR(begindttm,''D'') <= ''&&ps360_conf_work_day_to'' AND TO_CHAR(enddttm, ''HH24'') >= ''&&ps360_conf_work_time_from'' AND TO_CHAR(begindttm, ''HH24'') <= ''&&ps360_conf_work_time_to''"
+DEF date_filter_sql="AND r.enddttm>=SYSDATE-28 AND TO_CHAR(r.enddttm,''D'') >= ''&&ps360_conf_work_day_from'' AND TO_CHAR(r.begindttm,''D'') <= ''&&ps360_conf_work_day_to'' AND TO_CHAR(r.enddttm, ''HH24'') >= ''&&ps360_conf_work_time_from'' AND TO_CHAR(r.begindttm, ''HH24'') <= ''&&ps360_conf_work_time_to''"
 DEF date_filter_desc="(4 working weeks)"
 DEF date_filter_suffix="_4w"
 @@pstopaepsquery
-DEF date_filter_sql="AND enddttm>=ADD_MONTHS(SYSDATE,-1)"
+DEF date_filter_sql="AND r.enddttm>=ADD_MONTHS(SYSDATE,-1)"
 DEF date_filter_desc="(1 month)"
 DEF date_filter_suffix="_1m"
 @@pstopaepsquery
