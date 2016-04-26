@@ -13,8 +13,8 @@ SELECT r.prcsinstance
 ,      r.oprid
 ,      CAST(begindttm AS DATE) begindttm
 ,      CAST(enddttm AS DATE) enddttm
-,      SUBSTR(REGEXP_SUBSTR(p.origparmlist,''-NRN[^ ]+'',1,1,'i'),5) report_id
-,      SUBSTR(REGEXP_SUBSTR(p.origparmlist,''-NBU[^ ]+'',1,1,'i'),5) business_unit
+,      SUBSTR(REGEXP_SUBSTR(p.origparmlist,''-NRN[^ ]+'',1,1,''i''),5) report_id
+,      SUBSTR(REGEXP_SUBSTR(p.origparmlist,''-NBU[^ ]+'',1,1,''i''),5) business_unit
 FROM   psprcsrqst r
 ,      psprcsparms p
 WHERE  r.prcstype like ''nVision%''
@@ -34,7 +34,7 @@ select report_id, layout_id, business_unit
 ,      AVG(secs) avg_secs
 ,      MEDIAN(secs) med_secs
 ,      MAX(secs) max_secs
-,      VARIANCE(secs) max_secs
+,      VARIANCE(secs) var_secs
 from   y
 group by report_id, layout_id, business_unit
 )';
@@ -56,21 +56,20 @@ DEF piey="Total Time (seconds)"
 
 BEGIN
   :sql_text := :sql_text_stub||'
-SELECT '',[''''''||y.report_id||'':''||y.layout_id||'':''||y.business_unit||'''''',''||y.sum_secs||'']''
-FROM   y
-ORDER BY y.sum_secs desc
+SELECT '',[''''''||z.report_id||'':''||z.layout_id||'':''||z.business_unit||'''''',''||z.sum_secs||'']''
+FROM   z
+ORDER BY z.sum_secs desc
 '; 
 END;				
 /
 
 @@psgenericpie.sql
 
-
 BEGIN
   :sql_text := :sql_text_stub||'
 SELECT row_number() over (order by sum_secs desc) row_num
-,      y.*
-FROM   y
+,      z.*
+FROM   z
 ORDER BY row_num
 '; 
 END;				
