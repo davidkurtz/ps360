@@ -15,3 +15,5 @@ DEF ps_360_PieSliceVisThreshold = '.02';
 --
 DEF datetimefmt='dd.mm.yyyy hh24:mi:ss';
 DEF datefmt='dd.mm.yyyy';
+
+ALTER SESSION SET NLS_DATE_FORMAT='&&datetimefmt';

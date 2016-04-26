@@ -66,7 +66,7 @@ PRO <body>
 PRO <h1>PS360: PeopleSoft Configuration and Metrics</h1>
 
 PRO <pre>
-PRO version:0006 dbname:&&database_name_short. version:&&db_version. host:&&host_name_short. PT version:&&toolsrel. today:&&ps360_time_stamp.
+PRO version:0007 dbname:&&database_name_short. version:&&db_version. host:&&host_name_short. PT version:&&toolsrel. today:&&ps360_time_stamp.
 PRO </pre>
 
 PRO <table><tr class="main">
@@ -234,7 +234,36 @@ DEF date_filter_suffix="_1m"
 DEF date_filter_sql=""
 DEF date_filter_desc="(All)"
 DEF date_filter_suffix=""
-@@pstopaepsquery
+rem @@pstopaepsquery
+
+SPOOL &&ps360_main_report..html APP
+PRO <h2>Schedueled nVision Reports</h2>
+REM 1 day
+DEF date_filter_sql="AND r.enddttm>=SYSDATE-1"
+DEF date_filter_desc="(1 day)"
+DEF date_filter_suffix="_1d"
+@@psnvstop
+DEF date_filter_sql="AND r.enddttm>=SYSDATE-7 AND TO_CHAR(r.enddttm,''D'') >= ''&&ps360_conf_work_day_from'' AND TO_CHAR(r.begindttm,''D'') <= ''&&ps360_conf_work_day_to'' AND TO_CHAR(r.enddttm, ''HH24'') >= ''&&ps360_conf_work_time_from'' AND TO_CHAR(r.begindttm, ''HH24'') <= ''&&ps360_conf_work_time_to''"
+DEF date_filter_desc="(5 working days)"
+DEF date_filter_suffix="_5d"
+@@psnvstop
+DEF date_filter_sql="AND r.enddttm>=SYSDATE-7"
+DEF date_filter_desc="(1 week)"
+DEF date_filter_suffix="_1w"
+@@psnvstop
+DEF date_filter_sql="AND r.enddttm>=SYSDATE-28 AND TO_CHAR(r.enddttm,''D'') >= ''&&ps360_conf_work_day_from'' AND TO_CHAR(r.begindttm,''D'') <= ''&&ps360_conf_work_day_to'' AND TO_CHAR(r.enddttm, ''HH24'') >= ''&&ps360_conf_work_time_from'' AND TO_CHAR(r.begindttm, ''HH24'') <= ''&&ps360_conf_work_time_to''"
+DEF date_filter_desc="(4 working weeks)"
+DEF date_filter_suffix="_4w"
+@@psnvstop
+DEF date_filter_sql="AND r.enddttm>=ADD_MONTHS(SYSDATE,-1)"
+DEF date_filter_desc="(1 month)"
+DEF date_filter_suffix="_1m"
+@@psnvstop
+DEF date_filter_sql=""
+DEF date_filter_desc="(All)"
+DEF date_filter_suffix=""
+@@psnvstop
+
 
 SPOOL &&ps360_main_report..html APP
 PRO </td><td>
