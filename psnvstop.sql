@@ -56,9 +56,9 @@ DEF piey="Total Time (seconds)"
 
 BEGIN
   :sql_text := :sql_text_stub||'
-SELECT '',[''''''||z.report_id||'':''||z.layout_id||'':''||z.business_unit||'''''',''||z.sum_secs||'']''
-FROM   z
-ORDER BY z.sum_secs desc
+SELECT '',[''''''||y.report_id||'':''||y.layout_id||'':''||y.business_unit||'''''',''||y.sum_secs||'']''
+FROM   y
+ORDER BY y.sum_secs desc
 '; 
 END;				
 /
@@ -69,8 +69,8 @@ END;
 BEGIN
   :sql_text := :sql_text_stub||'
 SELECT row_number() over (order by sum_secs desc) row_num
-,      z.*
-FROM   z
+,      y.*
+FROM   y
 ORDER BY row_num
 '; 
 END;				
