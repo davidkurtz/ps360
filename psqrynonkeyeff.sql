@@ -9,7 +9,7 @@ REM see http://blog.psftdba.com/2010/01/performance-metrics-and-xml-reporting.ht
 BEGIN
   :sql_text := '
 SELECT  row_number() over (order by c.oprid, c.qryname, f.fieldname) row_num
-,       c.oprid, c.qryname, r.recname, r.corrname, f.fieldname 
+,       c.oprid, c.qryname, r.selnum, r.recname, r.corrname, f.fieldname 
 FROM    psqrycriteria c /*query crieria*/
 ,       psqryrecord r   /*records in queries*/
 ,       psqryfield f    /*fields in a queries*/
