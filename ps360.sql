@@ -20,4 +20,4 @@
 @@ps_0main.sql
 -- list of generated files
 HOS unzip -l &&zipfile
-PRO "End edb360. Output: &&zipfile"
+PRO "End ps360. Output: &&zipfile"

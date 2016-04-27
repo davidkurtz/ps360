@@ -46,8 +46,6 @@ DEF zipfile="&&ps_prefix._&&psdbname._&&file_time..zip"
 
 SET TERM &&ps_term_off HEA OFF LIN 32767 NEWP NONE PAGES 0 FEED OFF ECHO &&ps_echo_off VER OFF LONG 32000 LONGC 2000 WRA ON TRIMS ON TRIM ON TI OFF TIMI OFF ARRAY 100 NUM 20 SQLBL ON BLO . RECSEP OFF;
 
-REM debugging set term on feed on echo on
-
 SPOOL &&ps360_main_report..html
 
 PRO <head>
