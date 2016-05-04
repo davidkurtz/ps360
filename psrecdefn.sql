@@ -22,3 +22,5 @@ SELECT *
 '; 
 END;				
 /
+
+DEF desc_table_name="&&table_name"

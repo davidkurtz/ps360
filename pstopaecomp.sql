@@ -19,21 +19,21 @@ SELECT l.process_instance, l.process_name
 FROM   ps_bat_timings_dtl d
 ,      ps_bat_timings_log l
 WHERE  d.process_instance = l.process_instance
-AND    d.compile_count = d.execute_count 
-AND    d.compile_count > 1 
+AND    d.compile_count = d.execute_count
+AND    d.compile_count > 1
 AND    d.compile_time>=0 &&date_filter_sql
 ), y as (
 SELECT x.*
 ,      GREATEST(0,60*(60*(24*EXTRACT(day FROM diffdttm)
                             +EXTRACT(hour FROM diffdttm))
                             +EXTRACT(minute FROM diffdttm))
-                            +EXTRACT(second FROM diffdttm)-x.time_elapsed) delta 
+                            +EXTRACT(second FROM diffdttm)-x.time_elapsed) delta
 FROM x
 ), z AS (
 SELECT process_instance, process_name, bat_program_name, detail_id
 ,      compile_count
 ,      execute_count
-,      CASE WHEN time_elapsed < 0 THEN time_elapsed+delta  
+,      CASE WHEN time_elapsed < 0 THEN time_elapsed+delta
             ELSE time_elapsed END time_elapsed
 ,      CASE WHEN compile_time < 0 THEN compile_time+delta
             ELSE compile_time END AS compile_time
@@ -53,6 +53,7 @@ GROUP BY bat_program_name, detail_id
 SELECT row_number() over (ORDER BY compile_time DESC, step_time DESC, compile_count DESC) stmtrank
 , a.bat_program_name||''.''||a.detail_id detail_id
 , s.ae_reuse_stmt
+, CASE WHEN REGEXP_INSTR(t.sqltext,''NOQUOTES'',1,1,0,''i'') > 0 THEN ''Y'' END as NoQuotes
 , a.step_time, a.compile_time, a.compile_count, a.execute_count, a.processes, t.sqltext
 FROM a
 LEFT OUTER JOIN psaestmtdefn s
@@ -88,15 +89,17 @@ AND (  s.effdt IS NULL
 END;
 /
 
-COLUMN stmtrank        HEADING 'Stmt|Rank'        NEW_VALUE row_num
-COLUMN processes       HEADING 'Number of|Process|Instances'
-COLUMN process_name    HEADING 'Process|Name'
-COLUMN detail_id       HEADING 'Statement ID'   
-COLUMN step_time       HEADING 'Step|Secs'     FORMAT 999990.00
-COLUMN compile_time    HEADING 'Compile|Secs'  FORMAT 999990.00
-COLUMN compile_count   HEADING 'Compile|Count'
-COLUMN execute_count   HEADING 'Execute|Count'
-column ae_reuse_stmt   HEADING 'AE|ReUse|Stmt' FORMAT a5
+COL stmtrank        HEADING 'Stmt|Rank'      NEW_VALUE row_num
+COL processes       HEADING 'Number of|Process|Instances'
+COL process_name    HEADING 'Process|Name'
+COL detail_id       HEADING 'Statement ID'   
+COL step_time       HEADING 'Step|Secs'             FORMAT 999990.00
+COL compile_time    HEADING 'Compile|Secs'          FORMAT 999990.00
+COL compile_count   HEADING 'Compile|Count'
+COL execute_count   HEADING 'Execute|Count'
+col ae_reuse_stmt   HEADING 'AE|ReUse|Stmt'         FORMAT a5
+col noquotes        heading 'NoQuotes|Keyword|Used' format a8
+col sqltext         heading 'AE Statement Text' 
 
 DEF piex="Statement ID"
 DEF piey="Compile Time (seconds)"
