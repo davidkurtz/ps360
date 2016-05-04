@@ -2,7 +2,7 @@ REM psaetempgttcand.sql
 DEF recname = 'PSAEAPPLTEMPTBL'
 @@psrecdefn
 DEF lrecname = '&&lrecname._gttcand'
-REM recdescr = '&&recdescr.'
+DEF recdescr = '&&recdescr. Global Temporary Candidates'
 DEF descrlong = 'Temporary Records that are assigned to a non-restartable AE, but not to a restartable AE and so could be marked as GTTs from PeopleTools 8.54.'
 
 set lines 200 pages 99
@@ -54,6 +54,7 @@ END;
 /
 
 column numnorestartae heading 'Number of|Non-Restartable|AE programs'
-column ae_applids     heading 'Non-Restartable|Application Engines|(Number of Instances)
+column ae_applids     heading 'Non-Restartable|Application Engines|(Number of Instances)'
+column auxflaggtt     heading 'AUXFLAGMASK|Marked as GTT|(PT>=8.54)' format a15
 
 @@psgenerichtml.sql

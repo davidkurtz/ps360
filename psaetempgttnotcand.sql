@@ -1,8 +1,8 @@
 REM psaetempgttnotcand.sql
 DEF recname = 'PSAEAPPLTEMPTBL'
 @@psrecdefn
-DEF lrecname = '&&lrecname._gttcand'
-REM recdescr = '&&recdescr.'
+DEF lrecname = '&&lrecname._gttnotcand'
+DEF recdescr = '&&recdescr. must be permanent tables'
 DEF descrlong = 'Temporary Records that are marked as GTTs from PeopleTools 8.54 but are assigned to restartable AEs'
 
 set lines 200 pages 99
@@ -33,7 +33,7 @@ select r.recname
        ) ae_applids
 from   psrecdefn r
 where  r.rectype = 7
-and    bitand(auxflagmask,4194304)=4194304
+and    bitand(auxflagmask,4194304)=4194304 /*marked as GTT*/
 )
 select  recname, numrestartae, ae_applids
 from    x
@@ -43,6 +43,6 @@ END;
 /
 
 column numrestartae heading 'Number of|Restartable|AE programs'
-column ae_applids   heading 'Restartable|Application Engines|(Number of Instances)
+column ae_applids   heading 'Restartable|Application Engines|(Number of Instances)'
 
 @@psgenerichtml.sql
