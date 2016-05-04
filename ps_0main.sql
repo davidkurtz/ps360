@@ -204,7 +204,7 @@ DEF date_filter_suffix="_1m"
 DEF date_filter_sql=""
 DEF date_filter_desc="(All)"
 DEF date_filter_suffix=""
-rem @@pstopaestep
+@@pstopaestep
 
 SPOOL &&ps360_main_report..html APP
 PRO <h2>Application Engine Compilation Timings</h2>
