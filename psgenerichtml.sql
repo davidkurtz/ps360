@@ -107,7 +107,7 @@ order by f.fieldnum
 /
 SET lines 80 pages 0 head off MARK HTML OFF 
 
-DESC &&table_name
+DESC &&desc_table_name
 SET LIN 32767 
 PRINT :sql_text
 PRO /
@@ -120,6 +120,7 @@ SPO OFF;
 DEF report_abstract_2 = "";
 DEF report_abstract_3 = "";
 DEF report_abstract_4 = "";
+DEF desc_table_name = "";
 
 ROLLBACK;
 @@pszipit

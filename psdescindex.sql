@@ -1,8 +1,6 @@
 REM psdescindex.sql
 DEF recname = 'ALL_IND_EXPRESSIONS'
 @@pstimestamp.sql
-DEF table_name = '&&recname'
-DEF lrecname = 'all_ind_expressions'
 DEF recdescr = 'Function-based indexes'
 DEF descrlong = 'Descending indexes have been removed since PeopleTools 8.54, and in prior releases Oracle recommends setting _ignore_desc_in_index to prevent creating new ones.  This report lists any existing descending indexes that need to be rebuilt.'
 REM https://docs.oracle.com/cd/E58500_01/pt854pbh1/eng/pt/tadm/task_ConvertingDescendingIndexes.html#topofpage
