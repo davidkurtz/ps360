@@ -13,7 +13,7 @@ WITH x AS (
 SELECT l.process_instance, l.process_name
 ,      l.time_elapsed/1000 time_elapsed
 ,      l.enddttm-l.begindttm diffdttm
-,      d.bat_program_name||''.''||d.detail_id detail_id
+,      d.bat_program_name, d.detail_id
 ,      d.compile_count, GREATEST(0,d.compile_time)/1000 compile_time
 ,      d.execute_count, GREATEST(0,d.execute_time)/1000 execute_time
 FROM   ps_bat_timings_dtl d
@@ -30,7 +30,7 @@ SELECT x.*
                             +EXTRACT(second FROM diffdttm)-x.time_elapsed) delta 
 FROM x
 ), z AS (
-SELECT process_instance, process_name, detail_id
+SELECT process_instance, process_name, bat_program_name, detail_id
 ,      compile_count
 ,      execute_count
 ,      CASE WHEN time_elapsed < 0 THEN time_elapsed+delta  
@@ -41,19 +41,49 @@ SELECT process_instance, process_name, detail_id
             ELSE execute_time END AS execute_time
 FROM y
 ), a AS (
-SELECT detail_id
+SELECT bat_program_name, detail_id
 ,      SUM(compile_time)+SUM(execute_time) step_time
 ,      SUM(compile_time) compile_time
 ,      SUM(compile_count) compile_count
 ,      SUM(execute_count) execute_count
 ,      COUNT(DISTINCT process_instance) processes
 FROM   z
-GROUP BY detail_id
+GROUP BY bat_program_name, detail_id
 ), b AS (
 SELECT row_number() over (ORDER BY compile_time DESC, step_time DESC, compile_count DESC) stmtrank
-, a.* 
+, a.bat_program_name||''.''||a.detail_id detail_id
+, s.ae_reuse_stmt
+, a.step_time, a.compile_time, a.compile_count, a.execute_count, a.processes, t.sqltext
 FROM a
+LEFT OUTER JOIN psaestmtdefn s
+ ON s.ae_applid = a.bat_program_name
+ AND s.ae_section = regexp_substr(a.detail_id,''[^.]+'')
+ AND s.ae_step = substr(regexp_substr(a.detail_id,''.[^.]+'',1,2),2)
+ AND s.ae_stmt_type = substr(regexp_substr(a.detail_id,''.[^.]+'',1,3),2)
+ AND s.dbtype IN ('' '',''2'')
+LEFT OUTER JOIN pssqltextdefn t
+ ON t.sqlid = s.sqlid
+ AND t.sqltype = 1
+ AND t.market = s.market
+ AND t.dbtype = s.dbtype
+ AND t.effdt = s.effdt
+ AND t.seqnum = 0
 WHERE compile_count >= &&threshold
+AND (  s.dbtype IS NULL 
+    OR s.dbtype = (SELECT MAX(s1.dbtype)
+                   FROM   psaestmtdefn s1
+                   WHERE  s1.ae_applid = s.ae_applid
+                   AND    s1.ae_section = s.ae_section
+                   AND    s1.market = s.market
+                   AND    s1.dbtype IN('' '',''2'')))
+AND (  s.effdt IS NULL 
+    OR s.effdt =  (SELECT MAX(s2.effdt)
+                   FROM   psaestmtdefn s2
+                   WHERE  s2.ae_applid = s.ae_applid
+                   AND    s2.ae_section = s.ae_section
+                   AND    s2.market = s.market
+                   AND    s2.dbtype = s.dbtype
+                   AND    s2.effdt <= SYSDATE))
 )';
 END;
 /
@@ -62,10 +92,11 @@ COLUMN stmtrank        HEADING 'Stmt|Rank'        NEW_VALUE row_num
 COLUMN processes       HEADING 'Number of|Process|Instances'
 COLUMN process_name    HEADING 'Process|Name'
 COLUMN detail_id       HEADING 'Statement ID'   
-COLUMN step_time       HEADING 'Step|Secs' FORMAT 999990.00
-COLUMN compile_time    HEADING 'Compile|Secs' FORMAT 999990.00
+COLUMN step_time       HEADING 'Step|Secs'     FORMAT 999990.00
+COLUMN compile_time    HEADING 'Compile|Secs'  FORMAT 999990.00
 COLUMN compile_count   HEADING 'Compile|Count'
 COLUMN execute_count   HEADING 'Execute|Count'
+column ae_reuse_stmt   HEADING 'AE|ReUse|Stmt' FORMAT a5
 
 DEF piex="Statement ID"
 DEF piey="Compile Time (seconds)"
