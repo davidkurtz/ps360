@@ -21,7 +21,9 @@ Steps
 
 Notes
 ~~~~~
-1. If you need to change default "working hours" between 7:30AM and 7:30PM modify 
+1. The script can be run as another database user so long as that user has read access to
+   the PeopleSoft owning schema, the table PS.PSDBOWNER and select_catalog_role
+2. If you need to change default "working hours" between 7:30AM and 7:30PM modify 
    variables set in file ps_0config.sql (back it up first).
    
 ****************************************************************************************
