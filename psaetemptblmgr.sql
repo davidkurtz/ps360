@@ -1,6 +1,7 @@
 REM psaetemptblmgr.sql
 DEF recname = 'AETEMPTBLMGR'
 @@psrecdefn
+DEF recdescr = '&&recdescr. after process end.'
 DEF descrlong = 'When an Application Engine process crashes it can retain locks on temporary records allocated to it.  This report lists temporary tables allocated to application engines excluding running processes.'
 
 BEGIN

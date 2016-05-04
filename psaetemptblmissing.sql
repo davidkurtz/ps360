@@ -2,6 +2,7 @@ REM psaetemptblmissing.sql
 DEF recname = 'PSTEMPTBLCNTVW'
 @@psrecdefn
 DEF lrecname = '&&lrecname._missing'
+DEF recdescr = '&&recdescr. Table defined in PeopleSoft not built'
 DEF descrlong = 'Non-shared instances of temporary record not created as table in database.'
 
 set lines 200 pages 99
