@@ -8,26 +8,41 @@ DEF report_abstract_2 = '<br>Requires batch timings to be written to database - 
 
 BEGIN
   :sql_text_stub := '
-WITH a AS (
-SELECT a.bat_program_name||''.''||a.detail_id detail_id
-,      COUNT(distinct a.process_instance) executions
-,      SUM(a.compile_time)/1000 compile_time
-,      SUM(a.compile_count) compile_count
-,      SUM(a.fetch_time)/1000 fetch_time
-,      SUM(a.fetch_count) fetch_count
-,      SUM(a.retrieve_time)/1000 retrieve_time
-,      SUM(a.retrieve_count) retrieve_count
-,      SUM(a.execute_time)/1000 execute_time
-,      SUM(a.execute_count) execute_count
-,      SUM(a.peoplecodesqltime)/1000 pc_sqltime
-,      SUM(a.peoplecodetime)/1000 pc_time
-,      SUM(a.peoplecodecount) pc_count
-,      SUM(a.execute_time +a.compile_time +a.fetch_time +a.retrieve_time)/1000 ae_sqltime
-,      SUM(a.execute_time +a.compile_time +a.fetch_time +a.retrieve_time+a.peoplecodesqltime)/1000 sqltime
-,      SUM(a.execute_time +a.compile_time +a.fetch_time +a.retrieve_time+a.peoplecodesqltime +a.peoplecodetime)/1000 total_time
+WITH d AS (
+SELECT a.bat_program_name, a.detail_id
+,      COUNT(distinct a.process_instance)        executions
+,      SUM(a.compile_count)                      compile_count
+,      SUM(a.fetch_count)                        fetch_count
+,      SUM(a.retrieve_count)                     retrieve_count
+,      SUM(a.execute_count)                      execute_count
+,      SUM(a.peoplecodecount)                    peoplecodecount
+,      SUM(GREATEST(0,a.compile_time))/1000      compile_time
+,      SUM(GREATEST(0,a.fetch_time))/1000        fetch_time
+,      SUM(GREATEST(0,a.retrieve_time))/1000     retrieve_time
+,      SUM(GREATEST(0,a.execute_time))/1000      execute_time
+,      SUM(GREATEST(0,a.peoplecodesqltime))/1000 peoplecodesqltime
+,      SUM(GREATEST(0,a.peoplecodetime))/1000    peoplecodetime
 FROM   ps_bat_timings_dtl a, ps_bat_timings_log b
 WHERE  a.process_instance = b.process_instance &&date_filter_sql
 GROUP BY a.bat_program_name, a.detail_id
+), a AS (
+SELECT d.bat_program_name||''.''||d.detail_id detail_id
+,      d.executions
+,      d.compile_time      compile_time
+,      d.compile_count     compile_count
+,      d.fetch_time        fetch_time
+,      d.fetch_count       fetch_count
+,      d.retrieve_time     retrieve_time
+,      d.retrieve_count    retrieve_count
+,      d.execute_time      execute_time
+,      d.execute_count     execute_count
+,      d.peoplecodesqltime pc_sqltime
+,      d.peoplecodetime    pc_time
+,      d.peoplecodecount   pc_count
+,      d.execute_time+d.compile_time+d.fetch_time+d.retrieve_time ae_sqltime
+,      d.execute_time+d.compile_time+d.fetch_time+d.retrieve_time+d.peoplecodesqltime sqltime
+,      d.execute_time+d.compile_time+d.fetch_time+d.retrieve_time+d.peoplecodesqltime+d.peoplecodetime total_time
+FROM   d
 ), b AS (
 SELECT rank() OVER (ORDER BY total_time desc, sqltime desc) as stmtrank
 ,      a.*
