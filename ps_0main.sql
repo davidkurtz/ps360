@@ -207,7 +207,7 @@ DEF date_filter_suffix=""
 @@pstopaestep
 
 SPOOL &&ps360_main_report..html APP
-PRO <h2>Schedueled PS/Query</h2>
+PRO <h2>Scheduled PS/Query</h2>
 REM 1 day
 DEF date_filter_sql="AND r.enddttm>=SYSDATE-1"
 DEF date_filter_desc="(1 day)"
@@ -269,6 +269,10 @@ DEF repcol = "3"
 PRO <h2>Application Engine</h2>
 @@pstemptblinstances
 @@psaetemptblmgr
+@@psaetemptblmissing
+@@psaetemptblexcess.sql
+@@psaetempgttcand.sql
+@@psaetempgttnotcand.sql
 
 SPOOL &&ps360_main_report..html APP
 PRO <h2>Query</h2>
