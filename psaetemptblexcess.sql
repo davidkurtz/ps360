@@ -26,8 +26,9 @@ AND    n.n > c.temptblinstances+o.temptblinstances
 SELECT row_number() over (order by c.recname, c.instance) row_num
 ,      c.recname, c.instance, c.temptblinstances, c.table_name
 FROM   c
-,      user_tables t
-WHERE  t.table_name = c.table_name
+,      all_tables t
+WHERE  t.owner = ''&&ownerid''
+AND    t.table_name = c.table_name
 ORDER BY row_num
 '; 
 END;				

@@ -1,8 +1,8 @@
 REM pstemptabstats.sql
-DEF recname = 'USER_TAB_STATISTICS'
+DEF recname = 'ALL_TAB_STATISTICS'
 @@pstimestamp.sql
 DEF table_name = '&&recname'
-DEF lrecname = 'user_tab_statistics'
+DEF lrecname = 'all_tab_statistics'
 DEF recdescr = 'Unlocked Temporary Table Statistics'
 DEF descrlong = 'Statistics on PeopleSoft Temporary Records should be locked and deleted, and only collected explicitly by batch processes.'
 DEF report_abstract_2 = "<br>See <a target=''_blank'' href=''http://www.go-faster.co.uk/docs.htm#Managing.Statistics.11g''>http://www.go-faster.co.uk/docs.htm#Managing.Statistics.11g</a>";
@@ -35,8 +35,9 @@ SELECT row_number() over (order by r.recname, r.tempinstance, s.partition_positi
 ,      r.recname, r.tempinstance
 ,      s.*
 FROM   r
-,      user_tab_statistics s
+,      all_tab_statistics s
 WHERE  r.table_name = s.table_name
+AND    s.owner = ''&&ownerid''
 AND    s.object_type = ''TABLE''
 AND    s.partition_name IS NULL
 AND    s.stattype_locked IS NULL /*not locked*/

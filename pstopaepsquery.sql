@@ -2,7 +2,7 @@ REM pstopaepsquery.sql
 DEF recname = 'PSPRCSRQST'
 @@psrecdefn
 DEF lrecname = '&&lrecname._topquery&&date_filter_suffix'
-DEF recdescr = '&&recdescr. Scheduled PS/Queries by execution time &&date_filter_desc'
+DEF recdescr = 'Scheduled PS/Queries by execution time &&date_filter_desc'
 DEF descrlong = 'Execution time of PS/Queries schedued to run on the process scheduler &&date_filter_desc'
 DEF report_abstract_2 = '<br>Batch timings used if available, otherwise timings taken scheduler request';
 

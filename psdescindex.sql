@@ -1,8 +1,8 @@
 REM psdescindex.sql
-DEF recname = 'USER_IND_EXPRESSIONS'
+DEF recname = 'ALL_IND_EXPRESSIONS'
 @@pstimestamp.sql
 DEF table_name = '&&recname'
-DEF lrecname = 'user_ind_expressions'
+DEF lrecname = 'all_ind_expressions'
 DEF recdescr = 'Function-based indexes'
 DEF descrlong = 'Descending indexes have been removed since PeopleTools 8.54, and in prior releases Oracle recommends setting _ignore_desc_in_index to prevent creating new ones.  This report lists any existing descending indexes that need to be rebuilt.'
 REM https://docs.oracle.com/cd/E58500_01/pt854pbh1/eng/pt/tadm/task_ConvertingDescendingIndexes.html#topofpage
@@ -13,12 +13,15 @@ SELECT row_number() over (order by uie.table_name, uie.index_name, uie.column_po
 ,      uie.table_name, uie.index_name, uie.column_position
 ,      uie.column_expression
 ,      uic.column_name, uic.column_length, uic.char_length
-FROM   user_ind_columns uic
-,      user_ind_expressions uie
-WHERE  uic.table_name = uie.table_name
-AND    uic.indeX_name = uie.index_name
+FROM   all_ind_columns uic
+,      all_ind_expressions uie
+WHERE  uic.table_owner = uie.table_owner
+AND    uic.table_name = uie.table_name
+AND    uic.index_owner = uie.index_owner
+AND    uic.index_name = uie.index_name
 AND    uic.column_position = uie.column_position
 AND    uic.descend = ''DESC''
+AND    uic.table_owner = ''&&ownerid''
 ORDER BY row_num'; 
 END;				
 /

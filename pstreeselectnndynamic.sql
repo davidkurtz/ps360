@@ -13,8 +13,9 @@ BEGIN
 
   FOR i IN (
     SELECT table_name, TO_NUMBER(SUBSTR(table_name,-2)) length
-    FROM   user_tables
-    where table_name LIKE 'PSTREESELECT__'
+    FROM   all_tables
+    WHERE  owner = ''&&ownerid''
+    AND    table_name LIKE 'PSTREESELECT__'
     ORDER BY 1
   ) LOOP
     l_sqlc := 'INSERT INTO plan_table (statement_id, object_name, id, cost) 
