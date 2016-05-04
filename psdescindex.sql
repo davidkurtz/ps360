@@ -20,6 +20,7 @@ AND    uic.index_name = uie.index_name
 AND    uic.column_position = uie.column_position
 AND    uic.descend = ''DESC''
 AND    uic.table_owner = ''&&ownerid''
+AND    NOT uic.table_name like ''BIN$%''
 ORDER BY row_num'; 
 END;				
 /

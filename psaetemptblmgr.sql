@@ -7,16 +7,17 @@ DEF descrlong = 'When an Application Engine process crashes it can retain locks 
 BEGIN
   :sql_text := '
 SELECT row_number() over (order by recname, curtempinstance) row_num
-, t.*
-  FROM &&table_name t
- WHERE NOT EXISTS(
-     SELECT ''x''
-     FROM   psprcsrqst r 
-     WHERE  r.prcsinstance = t.process_instance
-     AND    r.runstatus = ''7'')
+,      t.*
+,      r.prcstype, r.prcsname, r.runstatus
+FROM   PS_AETEMPTBLMGR t
+LEFT OUTER JOIN psprcsrqst r
+ ON r.prcsinstance = t.process_instance
+WHERE  (r.runstatus != ''7'' OR r.runstatus IS NULL)
 ORDER BY row_num
 '; 
 END;				
 /
+
+column process_instance heading 'Process|Instance'
 
 @@psgenerichtml.sql

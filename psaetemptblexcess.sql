@@ -2,7 +2,7 @@ REM psaetemptblexcess.sql
 DEF recname = 'PSTEMPTBLCNTVW'
 @@psrecdefn
 DEF lrecname = '&&lrecname._excess'
-DEF recdescr = '&&recdescr. More table built than defined in PeopleSoft'
+DEF recdescr = '&&recdescr. More tables built than defined in PeopleSoft'
 DEF descrlong = 'More instances of non-shared temporary records created as tables in database than required.'
 
 set lines 200 pages 99
