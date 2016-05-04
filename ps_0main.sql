@@ -64,7 +64,7 @@ PRO <body>
 PRO <h1>PS360: PeopleSoft Configuration and Metrics</h1>
 
 PRO <pre>
-PRO version:0007 dbname:&&database_name_short. version:&&db_version. host:&&host_name_short. PT version:&&toolsrel. today:&&ps360_time_stamp.
+PRO version:0008 dbname:&&database_name_short. version:&&db_version. host:&&host_name_short. PT version:&&toolsrel. today:&&ps360_time_stamp.
 PRO </pre>
 
 PRO <table><tr class="main">
@@ -204,7 +204,38 @@ DEF date_filter_suffix="_1m"
 DEF date_filter_sql=""
 DEF date_filter_desc="(All)"
 DEF date_filter_suffix=""
-@@pstopaestep
+rem @@pstopaestep
+
+SPOOL &&ps360_main_report..html APP
+PRO <h2>Application Engine Compilation Timings</h2>
+REM 1 day
+DEF threshold=100
+DEF date_filter_sql="AND enddttm>=SYSDATE-1"
+DEF date_filter_desc="(1 day)"
+DEF date_filter_suffix="_1d"
+@@pstopaecomp
+DEF threshold=250
+DEF date_filter_sql="AND enddttm>=SYSDATE-7 AND TO_CHAR(enddttm,''D'') >= ''&&ps360_conf_work_day_from'' AND TO_CHAR(begindttm,''D'') <= ''&&ps360_conf_work_day_to'' AND TO_CHAR(enddttm, ''HH24'') >= ''&&ps360_conf_work_time_from'' AND TO_CHAR(begindttm, ''HH24'') <= ''&&ps360_conf_work_time_to''"
+DEF date_filter_desc="(5 working days)"
+DEF date_filter_suffix="_5d"
+@@pstopaecomp
+DEF date_filter_sql="AND enddttm>=SYSDATE-7"
+DEF date_filter_desc="(1 week)"
+DEF date_filter_suffix="_1w"
+@@pstopaecomp
+DEF threshold=1000
+DEF date_filter_sql="AND enddttm>=SYSDATE-28 AND TO_CHAR(enddttm,''D'') >= ''&&ps360_conf_work_day_from'' AND TO_CHAR(begindttm,''D'') <= ''&&ps360_conf_work_day_to'' AND TO_CHAR(enddttm, ''HH24'') >= ''&&ps360_conf_work_time_from'' AND TO_CHAR(begindttm, ''HH24'') <= ''&&ps360_conf_work_time_to''"
+DEF date_filter_desc="(4 working weeks)"
+DEF date_filter_suffix="_4w"
+@@pstopaecomp
+DEF date_filter_sql="AND enddttm>=ADD_MONTHS(SYSDATE,-1)"
+DEF date_filter_desc="(1 month)"
+DEF date_filter_suffix="_1m"
+@@pstopaecomp
+DEF date_filter_sql=""
+DEF date_filter_desc="(All)"
+DEF date_filter_suffix=""
+@@pstopaecomp
 
 SPOOL &&ps360_main_report..html APP
 PRO <h2>Scheduled PS/Query</h2>
@@ -232,10 +263,10 @@ DEF date_filter_suffix="_1m"
 DEF date_filter_sql=""
 DEF date_filter_desc="(All)"
 DEF date_filter_suffix=""
-rem @@pstopaepsquery
+@@pstopaecomp
 
 SPOOL &&ps360_main_report..html APP
-PRO <h2>Schedueled nVision Reports</h2>
+PRO <h2>Scheduled nVision Reports</h2>
 REM 1 day
 DEF date_filter_sql="AND r.enddttm>=SYSDATE-1"
 DEF date_filter_desc="(1 day)"

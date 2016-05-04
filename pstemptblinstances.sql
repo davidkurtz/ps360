@@ -1,7 +1,7 @@
 REM pstemptblinstances.sql
 DEF recname = 'MESSAGE_LOG'
 @@psrecdefn
-DEF recdescr = '&&recdescr - Application Engine has run out of non-shared temporary table instances'
+DEF recdescr = '&&recdescr - AE run out of non-shared temporary table instances'
 DEF descrlong = 'When an AE process cannot obtain a private instance of a temporary record it writes a message (108,544) to the message log. This query reports on the records/processes which required additional instances.'
 REM see http://blog.psftdba.com/2009/02/do-you-need-more-temporary-table.html
 REM see http://www.go-faster.co.uk/scripts/tr_moreinst.sql
