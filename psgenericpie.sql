@@ -71,7 +71,7 @@ PRO <font class="n">&&chart_foot_note_4.</font>
 PRO <pre>
 
 SET lines 80 
-DESC &&table_name
+DESC &&desc_table_name
 SET LIN 32767 
 PRINT :sql_text
 
