@@ -26,8 +26,9 @@ AND    n.n <= c.temptblinstances+o.temptblinstances
 SELECT row_number() over (order by c.recname, c.instance) row_num
 ,      c.recname, c.instance, c.temptblinstances, c.table_name
 FROM   c
-       LEFT OUTER JOIN user_tables t
-       ON t.table_name = c.table_name
+       LEFT OUTER JOIN all_tables t
+       ON  t.owner = ''&&ownerid'' 
+       AND t.table_name = c.table_name
 WHERE c.table_name IS NULL
 ORDER BY row_num
 '; 

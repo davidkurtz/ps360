@@ -16,7 +16,7 @@ SELECT l.process_instance, l.process_name
 ,      d.bat_program_name||''.''||d.detail_id detail_id
 ,      d.compile_count, GREATEST(0,d.compile_time)/1000 compile_time
 ,      d.execute_count, GREATEST(0,d.execute_time)/1000 execute_time
-FROM   ps_bat_Timings_dtl d
+FROM   ps_bat_timings_dtl d
 ,      ps_bat_timings_log l
 WHERE  d.process_instance = l.process_instance
 AND    d.compile_count = d.execute_count 

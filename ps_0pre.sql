@@ -26,14 +26,19 @@ SELECT TRANSLATE('&&host_name_short.',
 'abcdefghijklmnopqrstuvwxyz0123456789-_ ''`~!@#$%&*()=+[]{}\|;:",.<>/?'||CHR(0)||CHR(9)||CHR(10)||CHR(13)||CHR(38),
 'abcdefghijklmnopqrstuvwxyz0123456789-_') host_name_short FROM DUAL;
 
+DEF ownerid="SYSADM"
+col ownerid NEW_VALUE ownerid 
+SELECT o.ownerid
+FROM   ps.psdbowner o
+,      v$session s
+where  o.dbname = s.service_name
+and    s.sid IN(SELECT sid FROM v$mystat WHERE rownum = 1)
+/
+
+ALTER SESSION SET CURRENT_SCHEMA=&&ownerid;
 -- get rdbms version
 COL toolsrel NEW_V toolsrel
-SELECT toolsrel FROM psstatus;
-
--- get max_ps_agent_dttm
-COL max_ps_agent_dttm NEW_V max_ps_agent_dttm
-SELECT 'TO_DATE('''||TO_CHAR(TRUNC(MAX(pm_agent_dttm)+1),'YYYYMMDD')||''',''YYYYMMDD'')' max_ps_agent_dttm
-FROM   pspmeventhist;
+SELECT toolsrel, ownerid FROM psstatus;
 
 DEF lrecname="";
 DEF row_num="";
