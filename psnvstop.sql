@@ -20,7 +20,7 @@ FROM   psprcsrqst r
 WHERE  r.prcstype like ''nVision%''
 AND    r.enddttm>=r.begindttm
 AND    r.prcsinstance = p.prcsinstance
-AND    p.origparmlist like ''%-NRN%''
+AND    p.origparmlist like ''%-NRN%'' &&date_filter_sql
 ), y AS (
 SELECT n.layout_id, x.*
 ,      (x.enddttm-x.begindttm)*86400 secs
