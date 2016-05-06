@@ -1,5 +1,5 @@
 REM ps_0main.sql
-SET TERM OFF MARK HTML OFF HEA OFF LIN 32767 NEWP NONE PAGES 0 FEED OFF ECHO OFF VER OFF LONG 32000 LONGC 2000 WRA ON TRIMS ON TRIM ON TI OFF TIMI OFF ARRAY 100 NUM 20 SQLBL ON BLO . RECSEP OFF pause off
+SET TERM OFF MARK HTML OFF HEA OFF LIN 1000 NEWP NONE PAGES 0 FEED OFF ECHO OFF VER OFF LONG 32000 LONGC 2000 WRA ON TRIMS ON TRIM ON TI OFF TIMI OFF ARRAY 100 NUM 20 SQLBL ON BLO . RECSEP OFF pause off
 DEF ps_echo_off = "off"
 DEF ps_term_off = "off"
 
@@ -64,7 +64,7 @@ PRO <body>
 PRO <h1>PS360: PeopleSoft Configuration and Metrics</h1>
 
 PRO <pre>
-PRO version:0009 dbname:&&database_name_short. version:&&db_version. host:&&host_name_short. PT version:&&toolsrel. today:&&ps360_time_stamp.
+PRO version:0010 dbname:&&database_name_short. version:&&db_version. host:&&host_name_short. PT version:&&toolsrel. today:&&ps360_time_stamp.
 PRO </pre>
 
 PRO <table><tr class="main">
@@ -307,13 +307,23 @@ PRO <h2>Application Engine</h2>
 
 SPOOL &&ps360_main_report..html APP
 PRO <h2>Query</h2>
-@@psqrynonkeyeff
-
+rem @@psqrynonkeyeff
 
 SPOOL &&ps360_main_report..html APP
 PRO <h2>Database Management</h2>
 @@psdescindex
 @@pstemptabstats
+
+SPOOL &&ps360_main_report..html APP
+PRO <h2>Column Audit</h2>
+@@psobjpsnotdb
+@@psobjdbnotps
+@@psobjcoldiff
+@@pscolpsnotdb
+@@pscoldbnotps
+@@pscoldefdiff
+@@pscolnotsub
+@@pscoldiffpos
 
 PRO </td>
 PRO </body>

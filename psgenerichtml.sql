@@ -16,6 +16,7 @@ DEF report_abstract_2 = "";
 DEF report_abstract_3 = "";
 DEF report_abstract_4 = "";
 
+SET pages 0 head off MARK HTML OFF 
 COLUMN remarks ENTMAP OFF heading 'XLAT Values'
 SPOOL &&pstemp
 select 'COLUMN '||f.fieldname||' FORMAT A'||LENGTH(f.fieldname)
@@ -26,8 +27,7 @@ and   f.fieldname = d.fieldname
 and   d.fieldtype IN(0,1,8,9) /*VARCHAR2*/
 and   d.length >0
 and   d.length <LENGTH(f.fieldname)
-order by f.fieldnum
-/
+union all
 select 'COLUMN '||f.fieldname||' FORMAT '||RPAD('9',LENGTH(f.fieldname)-d.decimalpos,'9')
 ||CASE WHEN d.decimalpos>0 THEN RPAD('.',d.decimalpos+1,'9') END 
 from   psrecfielddb f
@@ -37,7 +37,6 @@ and   f.fieldname = d.fieldname
 and   d.fieldtype IN (2,3) /*NUMBER*/
 and   d.length >0
 and   d.length <LENGTH(f.fieldname)
-order by f.fieldnum
 /
 Spool off
 @@&&pstemp
@@ -47,7 +46,7 @@ PRINT :sql_text
 PRO /
 SPOOL OFF
 
-SPO &&htmlspool;
+SPO &&htmlspool
 PRO <head>
 PRO <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 PRO <title>&&report_title</title>
@@ -77,24 +76,18 @@ PRO <pre>
 COLUMN descrlong FORMAT a50 wrap on
 SET head on pages 50000 MARK HTML ON TABLE "class=sortable" ENTMAP ON
 COLUMN remarks ENTMAP OFF heading 'XLAT Values'
-WITH x AS (
-SELECT /*+MATERIALIZE*/ x.fieldname, x.fieldvalue, x.xlatshortname, x.xlatlongname
-,      ROW_NUMBER() OVER (PARTITION BY x.fieldname ORDER BY x.fieldvalue) AS curr
-,      ROW_NUMBER() OVER (PARTITION BY x.fieldname ORDER BY x.fieldvalue)-1 AS prev
-FROM   psxlatitem x
-WHERE  x.eff_status = 'A'
-AND    x.effdt = (SELECT MAX(x1.effdt)
-                  FROM   psxlatitem x1
-                  WHERE  x1.fieldname = x.fieldname
-                  AND    x1.effdt <= SYSDATE)
-)
 select f.fieldnum, f.fieldname, l.longname
 ,      RTRIM(d.descrlong) descrlong
 ,      (
-       SELECT SUBSTR(LTRIM(MAX(SYS_CONNECT_BY_PATH(fieldvalue||'='||xlatlongname,'<br/>')) KEEP (DENSE_RANK LAST ORDER BY curr),','),6)
-       FROM   x
-       CONNECT BY prev = PRIOR curr AND fieldname = PRIOR fieldname
-       START WITH curr = 1 AND x.fieldname = f.fieldname
+       SELECT LISTAGG(x.fieldvalue||'='||x.xlatlongname,'<br/>') WITHIN GROUP (ORDER BY x.fieldvalue)
+       FROM   psxlatitem x
+       WHERE  x.fieldname = f.fieldname       
+       AND    x.effdt = (SELECT MAX(x1.effdt)
+                         FROM   psxlatitem x1
+                         WHERE  x1.fieldname = x.fieldname
+                         AND    x1.effdt <= SYSDATE)
+       AND    x.eff_status = 'A'
+       AND    rownum <=150
        ) remarks
 from   psrecfielddb f
 	   left outer join psdbfldlabl l
@@ -107,8 +100,9 @@ order by f.fieldnum
 /
 SET lines 80 pages 0 head off MARK HTML OFF 
 
+PROMPT &&desc_table_name
 DESC &&desc_table_name
-SET LIN 32767 
+SET LIN 1000
 PRINT :sql_text
 PRO /
 PRO </pre>
@@ -116,7 +110,8 @@ PRO </pre>
 PRO </body>
 PRO </html>
 
-SPO OFF;
+SPO OFF
+set lines 1000
 DEF report_abstract_2 = "";
 DEF report_abstract_3 = "";
 DEF report_abstract_4 = "";
