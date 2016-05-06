@@ -3,8 +3,8 @@ REM colaudit COL-05
 DEF recname = 'PSRECFIELDDB'
 @@psrecdefn
 DEF lrecname = '&&lrecname._colpsnotdb'
-DEF recdescr = '&&recdescr. not built in database.'
-DEF descrlong = 'Object in PeopleSoft Data Dictionary but not in Oracle Database.'
+DEF recdescr = 'Columns in PeopleSoft not Oracle'
+DEF descrlong = 'Columns In PeopleSoft Data Dictionary, but not in Oracle Database.'
 
 BEGIN
   :sql_text := '

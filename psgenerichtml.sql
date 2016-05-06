@@ -16,6 +16,7 @@ DEF report_abstract_2 = "";
 DEF report_abstract_3 = "";
 DEF report_abstract_4 = "";
 
+SET pages 0 head off MARK HTML OFF 
 COLUMN remarks ENTMAP OFF heading 'XLAT Values'
 SPOOL &&pstemp
 select 'COLUMN '||f.fieldname||' FORMAT A'||LENGTH(f.fieldname)
@@ -26,8 +27,7 @@ and   f.fieldname = d.fieldname
 and   d.fieldtype IN(0,1,8,9) /*VARCHAR2*/
 and   d.length >0
 and   d.length <LENGTH(f.fieldname)
-order by f.fieldnum
-/
+union all
 select 'COLUMN '||f.fieldname||' FORMAT '||RPAD('9',LENGTH(f.fieldname)-d.decimalpos,'9')
 ||CASE WHEN d.decimalpos>0 THEN RPAD('.',d.decimalpos+1,'9') END 
 from   psrecfielddb f
@@ -37,7 +37,6 @@ and   f.fieldname = d.fieldname
 and   d.fieldtype IN (2,3) /*NUMBER*/
 and   d.length >0
 and   d.length <LENGTH(f.fieldname)
-order by f.fieldnum
 /
 Spool off
 @@&&pstemp
@@ -47,7 +46,7 @@ PRINT :sql_text
 PRO /
 SPOOL OFF
 
-SPO &&htmlspool;
+SPO &&htmlspool
 PRO <head>
 PRO <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 PRO <title>&&report_title</title>
@@ -111,7 +110,7 @@ PRO </pre>
 PRO </body>
 PRO </html>
 
-SPO OFF;
+SPO OFF
 set lines 1000
 DEF report_abstract_2 = "";
 DEF report_abstract_3 = "";
