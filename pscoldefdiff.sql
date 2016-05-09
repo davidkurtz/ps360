@@ -1,16 +1,8 @@
-<<<<<<< HEAD
 REM pscoldefdiff.sql
 REM colaudit COL-07
 DEF recname = 'PSRECFIELDDB'
 @@psrecdefn
 DEF lrecname = '&&lrecname._coldefdiff'
-=======
-REM psobjcoldiff.sql
-REM colaudit COL-07
-DEF recname = 'PSRECFIELDDB'
-@@psrecdefn
-DEF lrecname = '&&lrecname._objcoldiff'
->>>>>>> refs/remotes/origin/master
 DEF recdescr = 'Column Definition Difference'
 DEF descrlong = 'Columns in both Oracle and PeopleSoft, but different definitions.'
 
@@ -106,11 +98,7 @@ AND    oc.table_name = p.table_name
 AND    oc.column_name = p.fieldname
 --definition diff--
 AND	(	(	mod(p.useedit/256,2) = 1 /*required*/
-<<<<<<< HEAD
 		AND	oc.nullable = ''Y''	)
-=======
-		AND	oc.nullable =''Y''	)
->>>>>>> refs/remotes/origin/master
 	or	(	p.fieldtype IN(0,2,3) /*number or character*/
 		AND	oc.nullable = ''Y''
 		AND	NOT 	(	p.fieldname = p.systemidfieldname /*new in PT8.44 - system id fields can be nullable*/
@@ -160,11 +148,7 @@ AND	(	(	mod(p.useedit/256,2) = 1 /*required*/
 	or	(	p.fieldtype = 9 /*image ref*/
 		AND	not 	(	oc.data_type = ''VARCHAR2''
 				AND	oc.data_length = 30*u.unicode_factor)))
-<<<<<<< HEAD
 ORDER BY row_num';
-=======
-ORDER BY row_num
->>>>>>> refs/remotes/origin/master
 END;				
 /
 
