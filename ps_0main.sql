@@ -266,7 +266,7 @@ PRO <h2>Application Engine</h2>
 
 SPOOL &&ps360_main_report..html APP
 PRO <h2>Query</h2>
-rem @@psqrynonkeyeff
+@@psqrynonkeyeff
 
 SPOOL &&ps360_main_report..html APP
 PRO <h2>Database Management</h2>
