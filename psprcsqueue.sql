@@ -51,10 +51,7 @@ FROM DUAL
 UNION ALL
 SELECT '', [new Date(''||TO_CHAR(y.queue_dttm, ''YYYY'')||
        '',''||(TO_NUMBER(TO_CHAR(y.queue_dttm, ''MM'')) - 1)||
-       '',''||TO_CHAR(y.queue_dttm, ''DD'')||
-       '',''||TO_CHAR(y.queue_dttm, ''HH24'')||
-       '',''||TO_CHAR(y.queue_dttm, ''MI'')||
-       '',''||TO_CHAR(y.queue_dttm, ''SS'')||
+       '',''||TO_CHAR(y.queue_dttm, ''DD,HH24,MI,SS'')||
        '')''';
 
   for i in (SELECT * FROM psserverstat) LOOP
