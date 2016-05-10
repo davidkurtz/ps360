@@ -109,18 +109,22 @@ DEF date_filter_suffix=""
 
 SPOOL &&ps360_main_report..html APP
 PRO <h2>Process Scheduler Process Map</h2>
-DEF date_filter_sql="OR enddttm>=SYSDATE-1"
+DEF date_filter_sql="enddttm>=SYSDATE-1"
 DEF date_filter_desc="(1 day)"
 DEF date_filter_suffix="_1d"
 @@psprcsmap
-DEF date_filter_sql="OR enddttm>=SYSDATE-7"
+DEF date_filter_sql="enddttm>=SYSDATE-7"
 DEF date_filter_desc="(1 week)"
 DEF date_filter_suffix="_1w"
 @@psprcsmap
-REF date_filter_sql="OR enddttm>=ADD_MONTHS(SYSDATE,-1)"
+DEF date_filter_sql="enddttm>=ADD_MONTHS(SYSDATE,-1)"
 DEF date_filter_desc="(1 month)"
 DEF date_filter_suffix="_1m"
 @@psprcsmap
+DEF date_filter_sql="enddttm>=ADD_MONTHS(SYSDATE,-3)"
+DEF date_filter_desc="(3 months)"
+DEF date_filter_suffix="_3m"
+REM @@psprcsmap
 DEF date_filter_sql="1=1"
 DEF date_filter_desc="(All)"
 DEF date_filter_suffix=""

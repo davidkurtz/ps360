@@ -5,6 +5,7 @@ DEF recname = 'PSPRCSRQST'
 DEF lrecname = '&&lrecname._timeline&&date_filter_suffix'
 DEF recdescr = '&&recdescr. &&date_filter_desc'
 DEF descrlong = 'Timeline Map of Process Scheduler Processes &&date_filter_desc'
+DEF maxrows = 10000
 
 BEGIN
   :sql_text := '
@@ -20,6 +21,7 @@ WHERE  (p.runstatus = ''7'' OR &&date_filter_sql)
 AND    p.begindttm IS NOT NULL
 ), q AS (
 SELECT x.*
+,      row_number() over (order by x.begindttm DESC) row_num
 ,      SUM(x.enddttm-x.begindttm) OVER (PARTITION BY x.prcsname, x.prcstype) process_cum_duration
 FROM   x
 ORDER BY process_cum_duration DESC, x.prcsname, x.prcsinstance
@@ -40,6 +42,7 @@ TO_CHAR(q.enddttm, ''YYYY'')|| /* year */
 '')''||
 '']''
 FROM q
+WHERE row_num <= &&maxrows
 ';
 END;
 /
@@ -57,6 +60,7 @@ DEF linespool = "&&ps_prefix._&&psdbname._&&repcol._&&section..&&htmlsuffix";
 
 DEF report_title = "&&section: &&recdescr";
 DEF report_abstract_1 = "<br>&&descrlong";
+DEF report_abstract_4 = "<br>Limited to &&maxrows most recent process requests";
 
 DEF chart_title = "&&report_title";
 DEF chart_foot_note_1 = "<br>1) Hover over bar for Process Instance number";
