@@ -18,7 +18,7 @@ DEF report_title = "&&section: &&recdescr";
 DEF report_abstract_1 = "<br>&&descrlong";
 
 DEF chart_title = "&&report_title";
-DEF report_foot_note = "This is a Google scratter chart report.";
+DEF report_foot_note = "This is a Google scatter chart report.";
 
 SPO &&linespool;
 PRO <head>

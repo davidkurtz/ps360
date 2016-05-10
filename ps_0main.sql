@@ -23,7 +23,7 @@ PRO <body>
 PRO <h1>PS360: PeopleSoft Configuration and Metrics</h1>
 
 PRO <pre>
-PRO version:0010 dbname:&&database_name_short. version:&&db_version. host:&&host_name_short. PT version:&&toolsrel. today:&&ps360_time_stamp.
+PRO version:0011 dbname:&&database_name_short. version:&&db_version. host:&&host_name_short. PT version:&&toolsrel. today:&&ps360_time_stamp.
 PRO </pre>
 
 PRO <table><tr class="main">
@@ -63,7 +63,6 @@ SPOOL &&ps360_main_report..html APP
 PRO </td><td>
 DEF repcol = "2"
 PRO <h2>Process Scheduler Timings</h2>
-REM 1 day
 DEF date_filter_sql="AND enddttm>=SYSDATE-1"
 DEF date_filter_desc="(1 day)"
 DEF date_filter_suffix="_1d"
@@ -91,7 +90,6 @@ DEF date_filter_suffix=""
 
 SPOOL &&ps360_main_report..html APP
 PRO <h2>Process Scheduler Queueing</h2>
-REM 1 day
 DEF date_filter_sql="AND enddttm>=SYSDATE-1"
 DEF date_filter_desc="(1 day)"
 DEF date_filter_suffix="_1d"
@@ -110,8 +108,30 @@ DEF date_filter_suffix=""
 @@psprcsqueue
 
 SPOOL &&ps360_main_report..html APP
+PRO <h2>Process Scheduler Process Map</h2>
+DEF date_filter_sql="enddttm>=SYSDATE-1"
+DEF date_filter_desc="(1 day)"
+DEF date_filter_suffix="_1d"
+@@psprcsmap
+DEF date_filter_sql="enddttm>=SYSDATE-7"
+DEF date_filter_desc="(1 week)"
+DEF date_filter_suffix="_1w"
+@@psprcsmap
+DEF date_filter_sql="enddttm>=ADD_MONTHS(SYSDATE,-1)"
+DEF date_filter_desc="(1 month)"
+DEF date_filter_suffix="_1m"
+@@psprcsmap
+DEF date_filter_sql="enddttm>=ADD_MONTHS(SYSDATE,-3)"
+DEF date_filter_desc="(3 months)"
+DEF date_filter_suffix="_3m"
+REM @@psprcsmap
+DEF date_filter_sql="1=1"
+DEF date_filter_desc="(All)"
+DEF date_filter_suffix=""
+@@psprcsmap
+
+SPOOL &&ps360_main_report..html APP
 PRO <h2>Application Engine Batch Timings</h2>
-REM 1 day
 DEF date_filter_sql="WHERE enddttm>=SYSDATE-1"
 DEF date_filter_desc="(1 day)"
 DEF date_filter_suffix="_1d"
@@ -139,7 +159,6 @@ DEF date_filter_suffix=""
 
 SPOOL &&ps360_main_report..html APP
 PRO <h2>Application Engine Batch Detail Timings</h2>
-REM 1 day
 DEF date_filter_sql="AND enddttm>=SYSDATE-1"
 DEF date_filter_desc="(1 day)"
 DEF date_filter_suffix="_1d"
@@ -167,7 +186,6 @@ DEF date_filter_suffix=""
 
 SPOOL &&ps360_main_report..html APP
 PRO <h2>Application Engine Compilation Timings</h2>
-REM 1 day
 DEF threshold=100
 DEF date_filter_sql="AND enddttm>=SYSDATE-1"
 DEF date_filter_desc="(1 day)"
@@ -198,7 +216,6 @@ DEF date_filter_suffix=""
 
 SPOOL &&ps360_main_report..html APP
 PRO <h2>Scheduled PS/Query</h2>
-REM 1 day
 DEF date_filter_sql="AND r.enddttm>=SYSDATE-1"
 DEF date_filter_desc="(1 day)"
 DEF date_filter_suffix="_1d"
@@ -226,7 +243,6 @@ DEF date_filter_suffix=""
 
 SPOOL &&ps360_main_report..html APP
 PRO <h2>Scheduled nVision Reports</h2>
-REM 1 day
 DEF date_filter_sql="AND r.enddttm>=SYSDATE-1"
 DEF date_filter_desc="(1 day)"
 DEF date_filter_suffix="_1d"
