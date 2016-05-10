@@ -16,7 +16,8 @@ SELECT p.prcsname, p.prcstype, p.prcsinstance
          ELSE CAST(p.enddttm AS DATE) 
        END AS enddttm
 FROM   psprcsrqst p
-WHERE  p.runstatus = ''7'' OR (&&date_filter_sql)
+WHERE  (p.runstatus = ''7'' OR &&date_filter_sql)
+AND    p.begindttm IS NOT NULL
 ), q AS (
 SELECT x.*
 ,      SUM(x.enddttm-x.begindttm) OVER (PARTITION BY x.prcsname, x.prcstype) process_cum_duration
