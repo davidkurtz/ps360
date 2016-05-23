@@ -85,6 +85,7 @@ select f.fieldnum, f.fieldname, l.longname
        AND    x.effdt = (SELECT MAX(x1.effdt)
                          FROM   psxlatitem x1
                          WHERE  x1.fieldname = x.fieldname
+                         AND    x1.fieldvalue = x.fieldvalue
                          AND    x1.effdt <= SYSDATE)
        AND    x.eff_status = 'A'
        AND    rownum <=150
