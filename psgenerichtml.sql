@@ -12,9 +12,9 @@ DEF htmlspool = "&&ps_prefix._&&psdbname._&&repcol._&&section..&&htmlsuffix";
 
 DEF report_title = "&&section: &&recdescr";
 DEF report_abstract_1 = "<br>&&descrlong";
-DEF report_abstract_2 = "";
-DEF report_abstract_3 = "";
-DEF report_abstract_4 = "";
+REM DEF report_abstract_2 = "";
+REM DEF report_abstract_3 = "";
+REM DEF report_abstract_4 = "";
 
 SET pages 0 head off MARK HTML OFF 
 COLUMN remarks ENTMAP OFF heading 'XLAT Values'
@@ -79,7 +79,7 @@ COLUMN remarks ENTMAP OFF heading 'XLAT Values'
 select f.fieldnum, f.fieldname, l.longname
 ,      RTRIM(d.descrlong) descrlong
 ,      (
-       SELECT LISTAGG(x.fieldvalue||'='||x.xlatlongname,'<br/>') WITHIN GROUP (ORDER BY x.fieldvalue)
+       SELECT LISTAGG(x.fieldvalue||'='||x.xlatlongname,'<br/>') WITHIN GROUP (ORDER BY LPAD(x.fieldvalue,4,' '))
        FROM   psxlatitem x
        WHERE  x.fieldname = f.fieldname       
        AND    x.effdt = (SELECT MAX(x1.effdt)
