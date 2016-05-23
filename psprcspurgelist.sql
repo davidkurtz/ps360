@@ -1,7 +1,7 @@
 REM psprcspurgelist.sql
 DEF recname = 'PRCSPURGELIST'
 @@psrecdefn
-DEF report_abstract_2 = "Process Scheduler Purge Settings";
+DEF recdescr = "Process Scheduler Purge Settings";
 
 BEGIN
   :sql_text := '
