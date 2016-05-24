@@ -1,7 +1,7 @@
-REM psgateway.sql
-DEF recname = 'PSGATEWAY'
+REM psibloadbalurl.sql
+DEF recname = 'PSIBLOADBALURL'
 @@psrecdefn
-DEF recdescr = "Gateway Definition and URL";
+DEF recdescr = "Gateway Load Balanced URL";
 
 BEGIN
   :sql_text := '

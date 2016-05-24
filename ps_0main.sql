@@ -65,6 +65,8 @@ PRO <h2>Integration Broker</h2>
 SPOOL OFF
 @@psgateway
 @@psconn
+@@psibloadbalurl
+@@psibgatewayurls
 @@psmsgnodedefn
 
 SPOOL &&ps360_main_report..html APP
