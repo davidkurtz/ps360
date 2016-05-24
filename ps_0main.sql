@@ -61,6 +61,13 @@ SPOOL OFF
 @@pstreeselectnndynamic
 
 SPOOL &&ps360_main_report..html APP
+PRO <h2>Integration Broker</h2>
+SPOOL OFF
+@@psgateway
+@@psconn
+@@psmsgnodedefn
+
+SPOOL &&ps360_main_report..html APP
 PRO </td><td>
 DEF repcol = "2"
 PRO <h2>Process Scheduler Timings</h2>
