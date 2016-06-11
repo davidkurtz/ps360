@@ -24,6 +24,7 @@ SELECT x.*
 ,      row_number() over (order by x.begindttm DESC) row_num
 ,      SUM(x.enddttm-x.begindttm) OVER (PARTITION BY x.prcsname, x.prcstype) process_cum_duration
 FROM   x
+WHERE  x.begindttm <= x.enddttm
 ORDER BY process_cum_duration DESC, x.prcsname, x.prcsinstance
 )
 SELECT DECODE(rownum,1,''['','','')||
