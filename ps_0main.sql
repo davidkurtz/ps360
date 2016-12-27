@@ -11,12 +11,12 @@ PRO <head>
 PRO <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 PRO <title>&&ps_report_prefix Main Menu</title>
 
-@@ps_0pre.sql
-@@ps_0config.sql
+@@ps_0pre
+@@ps_0config
 
 SPOOL &&ps360_main_report..html APP
 
-@@pshtmlstyle.sql
+@@pshtmlstyle
 
 PRO </head>
 PRO <body>
@@ -286,9 +286,9 @@ PRO <h2>Application Engine</h2>
 @@pstemptblinstances
 @@psaetemptblmgr
 @@psaetemptblmissing
-@@psaetemptblexcess.sql
-@@psaetempgttcand.sql
-@@psaetempgttnotcand.sql
+@@psaetemptblexcess
+@@psaetempgttcand
+@@psaetempgttnotcand
 
 SPOOL &&ps360_main_report..html APP
 PRO <h2>Query</h2>
@@ -298,6 +298,7 @@ SPOOL &&ps360_main_report..html APP
 PRO <h2>Database Management</h2>
 @@psdescindex
 @@pstemptabstats
+@@psredundantindexes
 
 SPOOL &&ps360_main_report..html APP
 PRO <h2>Column Audit</h2>
