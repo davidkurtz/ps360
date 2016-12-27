@@ -41,10 +41,16 @@ AND    n.n <= c.temptblinstances+o.temptblinstances
 SELECT /*+MATERIALIZE*/ r.recname, rectype
 ,      r.table_name
 ,      f.fieldname
-,      f.fieldnum
+,      row_number() over (partition by r.recname, r.table_name order by 
+       CASE WHEN d.fieldtype = 1 AND (d.length = 0 OR d.length> 4000) AND r.rectype IN(0,7) THEN 2
+            WHEN d.fieldtype = 8 AND r.rectype IN(0,7) THEN 2
+            ELSE 1 
+       END, f.fieldnum) as fieldnum
 FROM   r
 ,      psrecfielddb f
+,      psdbfield d
 WHERE  r.recname = f.recname
+AND    d.fieldname = f.fieldname
 )
 SELECT row_number() OVER (ORDER BY p.recname, o.object_name, oc.column_id) row_num
 ,      p.rectype, DECODE(p.rectype,0,''TABLE'',1,''VIEW'',6,''QUERY VIEW'',7,''TEMPORARY TABLE'') rectype_desc
