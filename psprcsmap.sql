@@ -11,6 +11,7 @@ BEGIN
   :sql_text := '
 WITH x as (
 SELECT p.prcsname, p.prcstype, p.prcsinstance
+,      p.prcsinstance||'':''||p.oprid||'':''||p.runcntlid tooltip
 ,      CAST(p.begindttm AS DATE) begindttm
 ,      CASE p.runstatus 
          WHEN ''7'' THEN sysdate
@@ -30,7 +31,7 @@ ORDER BY process_cum_duration DESC, x.prcsname, x.prcsinstance
 SELECT DECODE(rownum,1,''['','','')||
 ''[''''''||q.prcsname||''''''''||
 '', ''''''''''||
-'', ''''''||q.prcsinstance||''''''''||
+'', ''''''||q.tooltip||''''''''||
 '', new Date(''||
 TO_CHAR(q.begindttm, ''YYYY'')|| /* year */
 '',''||(TO_NUMBER(TO_CHAR(q.begindttm, ''MM'')) - 1)|| /* month - 1 */
