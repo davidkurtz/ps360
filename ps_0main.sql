@@ -37,6 +37,7 @@ PRO <h2>General</h2>
 SPOOL OFF
 @@psstatus
 @@psinstallation
+@@psddlmodel
 
 SPOOL &&ps360_main_report..html APP
 PRO <h2>Process Scheduler</h2>
