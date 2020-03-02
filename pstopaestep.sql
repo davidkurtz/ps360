@@ -73,20 +73,20 @@ COLUMN pct_sqltime       HEADING '%|SQL|Time'       FORMAT 990.0
 COLUMN pct_total_time    HEADING '%|Total|Time'     FORMAT 990.0 
 COLUMN cum_pc_sqltime    HEADING 'Cum %|SQL|Time'   FORMAT 990.0 
 COLUMN cum_pc_total_time HEADING 'Cum %|Total|Time' FORMAT 990.0 
-COLUMN executions        HEADING 'Num|Execs'        FORMAT 99990
-COLUMN compile_time      HEADING 'Compile|Time'     FORMAT 99990.0
-COLUMN compile_count     HEADING 'Compile|Count'    FORMAT 99990
-COLUMN fetch_time        HEADING 'Fetch|Time'       FORMAT 99990.0
-COLUMN fetch_count       HEADING 'Fetch|Count'      FORMAT 99990
-COLUMN retrieve_time     HEADING 'Retrieve|Time'    FORMAT 99990.0
-COLUMN retrieve_count    HEADING 'Retrieve|Count'   FORMAT 99990
-COLUMN execute_time      HEADING 'Exec|Time'        FORMAT 99990.0
-COLUMN execute_count     HEADING 'Exec|Count'       FORMAT 99990
-COLUMN ae_sqltime        HEADING 'AE|SQL|Time'      FORMAT 99990.0
-COLUMN pc_sqltime        HEADING 'PC|SQL|Time'      FORMAT 99990.0
-COLUMN pc_time           HEADING 'PC|Time'          FORMAT 99990.0
-COLUMN pc_count          HEADING 'PC|Count'         FORMAT 99990
-COLUMN total_time        HEADING 'Total|Time'       FORMAT 99990.0
+COLUMN executions        HEADING 'Num|Execs'        FORMAT 999990
+COLUMN compile_time      HEADING 'Compile|Time'     FORMAT 999990.0
+COLUMN compile_count     HEADING 'Compile|Count'    FORMAT 999990
+COLUMN fetch_time        HEADING 'Fetch|Time'       FORMAT 999990.0
+COLUMN fetch_count       HEADING 'Fetch|Count'      FORMAT 999990
+COLUMN retrieve_time     HEADING 'Retrieve|Time'    FORMAT 999990.0
+COLUMN retrieve_count    HEADING 'Retrieve|Count'   FORMAT 999990
+COLUMN execute_time      HEADING 'Exec|Time'        FORMAT 999990.0
+COLUMN execute_count     HEADING 'Exec|Count'       FORMAT 999990
+COLUMN ae_sqltime        HEADING 'AE|SQL|Time'      FORMAT 999990.0
+COLUMN pc_sqltime        HEADING 'PC|SQL|Time'      FORMAT 999990.0
+COLUMN pc_time           HEADING 'PC|Time'          FORMAT 999990.0
+COLUMN pc_count          HEADING 'PC|Count'         FORMAT 999990
+COLUMN total_time        HEADING 'Total|Time'       FORMAT 999990.0
 
 DEF piex="Statement ID"
 DEF piey="Total Time (seconds)"
