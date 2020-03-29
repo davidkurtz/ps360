@@ -56,12 +56,12 @@ END;
 COLUMN stmtrank             HEADING 'Stmt|Rank'                   NEW_VALUE row_num
 COLUMN process_name         HEADING 'Process|Name' 
 COLUMN executions           HEADING 'Num|Execs'
-COLUMN time_elapsed         HEADING 'Elapsed|Time (s)'            FORMAT 99990.000
-COLUMN time_in_pc           HEADING 'SQL|Time (s)'                FORMAT 99990.000
-COLUMN time_in_sql          HEADING 'PeopleCode|Time (s)'         FORMAT 99990.000
-COLUMN avg_time_elapsed     HEADING 'Average|Elapsed|Time (s)'    FORMAT 99990.000
-COLUMN avg_time_in_pc       HEADING 'Average|SQL|Time (s)'        FORMAT 99990.000
-COLUMN avg_time_in_sql      HEADING 'Average|PeopleCode|Time (s)' FORMAT 99990.000
+COLUMN time_elapsed         HEADING 'Elapsed|Time (s)'            FORMAT 999990.000
+COLUMN time_in_pc           HEADING 'SQL|Time (s)'                FORMAT 999990.000
+COLUMN time_in_sql          HEADING 'PeopleCode|Time (s)'         FORMAT 999990.000
+COLUMN avg_time_elapsed     HEADING 'Average|Elapsed|Time (s)'    FORMAT 999990.000
+COLUMN avg_time_in_pc       HEADING 'Average|SQL|Time (s)'        FORMAT 999990.000
+COLUMN avg_time_in_sql      HEADING 'Average|PeopleCode|Time (s)' FORMAT 999990.000
 COLUMN pct_time_elapsed     HEADING '%Elapsed|Time'               FORMAT 990.0
 COLUMN pct_time_in_pc       HEADING '%SQL|Time'                   FORMAT 990.0
 COLUMN pct_time_in_sql      HEADING '%PeopleCode|Time'            FORMAT 990.0
