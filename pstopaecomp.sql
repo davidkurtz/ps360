@@ -53,14 +53,14 @@ GROUP BY bat_program_name, detail_id
 SELECT row_number() over (ORDER BY compile_time DESC, step_time DESC, compile_count DESC) stmtrank
 , a.bat_program_name||''.''||a.detail_id detail_id
 , s.ae_reuse_stmt
-, CASE WHEN REGEXP_INSTR(t.sqltext,''NOQUOTES'',1,1,0,''i'') > 0 THEN ''Y'' END as NoQuotes
+, CASE WHEN REGEXP_INSTR(t.sqltext,''\%BIND\([A-Z0-9_,\. ]+(NOQUOTES)[ ]*\)'',1,1,0,''ix'') > 0 THEN ''Y'' END as NoQuotes
 , a.step_time, a.compile_time, a.compile_count, a.execute_count, a.processes, t.sqltext
 FROM a
 LEFT OUTER JOIN psaestmtdefn s
  ON s.ae_applid = a.bat_program_name
  AND s.ae_section = regexp_substr(a.detail_id,''[^.]+'')
- AND s.ae_step = substr(regexp_substr(a.detail_id,''.[^.]+'',1,2),2)
- AND s.ae_stmt_type = substr(regexp_substr(a.detail_id,''.[^.]+'',1,3),2)
+ AND s.ae_step = regexp_substr(a.detail_id,''[^.]+'',1,2)
+ AND s.ae_stmt_type = regexp_substr(a.detail_id,''[^.]+'',1,3)
  AND s.dbtype IN ('' '',''2'')
 LEFT OUTER JOIN pssqltextdefn t
  ON t.sqlid = s.sqlid
@@ -71,14 +71,14 @@ LEFT OUTER JOIN pssqltextdefn t
  AND t.seqnum = 0
 WHERE compile_count >= &&threshold
 AND (  s.dbtype IS NULL 
-    OR s.dbtype = (SELECT MAX(s1.dbtype)
+    OR s.dbtype = (SELECT /*+UNNEST*/ MAX(s1.dbtype)
                    FROM   psaestmtdefn s1
                    WHERE  s1.ae_applid = s.ae_applid
                    AND    s1.ae_section = s.ae_section
                    AND    s1.market = s.market
                    AND    s1.dbtype IN('' '',''2'')))
 AND (  s.effdt IS NULL 
-    OR s.effdt =  (SELECT MAX(s2.effdt)
+    OR s.effdt =  (SELECT /*+UNNEST*/ MAX(s2.effdt)
                    FROM   psaestmtdefn s2
                    WHERE  s2.ae_applid = s.ae_applid
                    AND    s2.ae_section = s.ae_section
@@ -99,7 +99,7 @@ COL compile_count   HEADING 'Compile|Count'
 COL execute_count   HEADING 'Execute|Count'
 col ae_reuse_stmt   HEADING 'AE|ReUse|Stmt'         FORMAT a5
 col noquotes        heading 'NoQuotes|Keyword|Used' format a8
-col sqltext         heading 'AE Statement Text' 
+col sqltext         heading 'AE Statement Text'     format a100 
 
 DEF piex="Statement ID"
 DEF piey="Compile Time (seconds)"

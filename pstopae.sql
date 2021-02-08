@@ -11,12 +11,12 @@ BEGIN
 WITH a AS (
 SELECT a.process_name
 ,      COUNT(*) executions
-,      SUM(a.time_elapsed)/1000 time_elapsed
-,      SUM(a.time_in_pc)/1000 time_in_pc
-,      SUM(a.time_in_sql)/1000 time_in_sql
-,      AVG(a.time_elapsed)/1000 avg_time_elapsed
-,      AVG(a.time_in_pc)/1000 avg_time_in_pc
-,      AVG(a.time_in_sql)/1000 avg_time_in_sql
+,      SUM(GREATEST(a.time_elapsed,0))/1000 time_elapsed
+,      SUM(GREATEST(a.time_in_pc  ,0))/1000 time_in_pc
+,      SUM(GREATEST(a.time_in_sql ,0))/1000 time_in_sql
+,      AVG(GREATEST(a.time_elapsed,0))/1000 avg_time_elapsed
+,      AVG(GREATEST(a.time_in_pc  ,0))/1000 avg_time_in_pc
+,      AVG(GREATEST(a.time_in_sql ,0))/1000 avg_time_in_sql
 FROM   ps_bat_timings_log a &&date_filter_sql
 GROUP BY a.process_name
 ), b AS (

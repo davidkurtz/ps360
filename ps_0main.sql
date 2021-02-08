@@ -23,7 +23,7 @@ PRO <body>
 PRO <h1>PS360: PeopleSoft Configuration and Metrics</h1>
 
 PRO <pre>
-PRO version:0012 dbname:&&database_name_short. version:&&db_version. host:&&host_name_short. PT version:&&toolsrel. today:&&ps360_time_stamp.
+PRO version:0013 dbname:&&database_name_short. version:&&db_version. host:&&host_name_short. PT version:&&toolsrel. today:&&ps360_time_stamp.
 PRO </pre>
 
 PRO <table><tr class="main">
@@ -37,6 +37,7 @@ PRO <h2>General</h2>
 SPOOL OFF
 @@psstatus
 @@psinstallation
+@@psddlmodel
 
 SPOOL &&ps360_main_report..html APP
 PRO <h2>Process Scheduler</h2>

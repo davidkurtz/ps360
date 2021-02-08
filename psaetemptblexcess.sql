@@ -6,6 +6,11 @@ DEF recdescr = '&&recdescr. More tables built than defined in PeopleSoft'
 DEF descrlong = 'More instances of non-shared temporary records created as tables in database than required.'
 
 set lines 200 pages 99
+column temptblinstances heading 'Temp Table|Instances'
+column min_instance heading 'Min|Instance'
+column max_instance heading 'Max|Instance'
+column instances    heading 'Num|Instances'
+
 BEGIN
   :sql_text := '
 WITH n AS (
@@ -22,13 +27,17 @@ FROM   n
 ,      psoptions o
 WHERE  r.recname = c.recname
 AND    n.n > c.temptblinstances+o.temptblinstances
-)
-SELECT row_number() over (order by c.recname, c.instance) row_num
-,      c.recname, c.instance, c.temptblinstances, c.table_name
+), x as (
+SELECT c.recname, c.temptblinstances, MIN(instance) min_instance, MAX(instance) max_instance, count(*) instances
 FROM   c
 ,      all_tables t
 WHERE  t.owner = ''&&ownerid''
 AND    t.table_name = c.table_name
+GROUP BY c.recname, c.temptblinstances
+)
+SELECT row_number() over (order by x.recname) row_num
+,      x.*
+FROM   x
 ORDER BY row_num
 '; 
 END;				

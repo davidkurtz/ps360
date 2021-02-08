@@ -77,7 +77,7 @@ COLUMN descrlong FORMAT a50 wrap on
 SET head on pages 50000 MARK HTML ON TABLE "class=sortable" ENTMAP ON
 COLUMN remarks ENTMAP OFF heading 'XLAT Values'
 select f.fieldnum, f.fieldname, l.longname
-,      RTRIM(d.descrlong) descrlong
+,      RTRIM(NVL(d.descrlong,'')) descrlong
 ,      (
        SELECT LISTAGG(x.fieldvalue||'='||x.xlatlongname,'<br/>') WITHIN GROUP (ORDER BY LPAD(x.fieldvalue,4,' '))
        FROM   psxlatitem x
