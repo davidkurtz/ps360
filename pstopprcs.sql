@@ -40,7 +40,7 @@ END;
 /
 
 COLUMN prcrank              HEADING 'Stmt|Rank'                   NEW_VALUE row_num
-COLUMN executions           HEADING 'Num|Execs'                   FORMAT 999999
+COLUMN executions           HEADING 'Num|Execs'
 COLUMN prcstype             HEADING 'Process|Type'
 COLUMN prcsname             HEADING 'Process|Name'
 COLUMN dur                  HEADING 'Total|Duration|(s)'

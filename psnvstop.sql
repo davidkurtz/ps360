@@ -46,9 +46,9 @@ COLUMN report_id     heading 'Report|ID' format a8
 COLUMN business_unit heading 'Business|Unit' format a5 
 column execs         heading 'Number of|Executions'
 column sum_secs      heading 'Total|Execution|Time (s)'
-column avg_secs      heading 'Average|Execution|Time (s)' format 99999.9
-column med_secs      heading 'Median|Execution|Time (s)'  format 99999.9
-column var_secs      heading 'Variance|Execution|Time (s)'  format 99999999.9
+column avg_secs      heading 'Average|Execution|Time (s)'   format 9999990.0
+column med_secs      heading 'Median|Execution|Time (s)'    format 9999990.0
+column var_secs      heading 'Variance|Execution|Time (s)'  format 999999990.0
 column max_secs      heading 'Maximum|Execution|Time (s)'
 
 DEF piex="Report/Layout ID"
