@@ -41,15 +41,15 @@ group by report_id, layout_id, business_unit
 END;
 /
 
-COLUMN layout_id     heading 'Layout|ID' format a20
-COLUMN report_id     heading 'Report|ID' format a8
-COLUMN business_unit heading 'Business|Unit' format a5 
-column execs         heading 'Number of|Executions'
-column sum_secs      heading 'Total|Execution|Time (s)'
-column avg_secs      heading 'Average|Execution|Time (s)'   format 9999990.0
-column med_secs      heading 'Median|Execution|Time (s)'    format 9999990.0
-column var_secs      heading 'Variance|Execution|Time (s)'  format 999999990.0
-column max_secs      heading 'Maximum|Execution|Time (s)'
+COLUMN layout_id     heading 'Layout|ID'                    FORMAT a20
+COLUMN report_id     heading 'Report|ID'                    FORMAT a8
+COLUMN business_unit heading 'Business|Unit'                FORMAT a5 
+COLUMN execs         heading 'Number of|Executions'
+COLUMN sum_secs      heading 'Total|Execution|Time (s)'
+COLUMN avg_secs      heading 'Average|Execution|Time (s)'   FORMAT 9999990.0
+COLUMN med_secs      heading 'Median|Execution|Time (s)'    FORMAT 9999990.0
+COLUMN var_secs      heading 'Variance|Execution|Time (s)'  FORMAT 999999990.0
+COLUMN max_secs      heading 'Maximum|Execution|Time (s)'
 
 DEF piex="Report/Layout ID"
 DEF piey="Total Time (seconds)"
