@@ -93,8 +93,8 @@ COL stmtrank        HEADING 'Stmt|Rank'      NEW_VALUE row_num
 COL processes       HEADING 'Number of|Process|Instances'
 COL process_name    HEADING 'Process|Name'
 COL detail_id       HEADING 'Statement ID'   
-COL step_time       HEADING 'Step|Secs'             FORMAT 999990.00
-COL compile_time    HEADING 'Compile|Secs'          FORMAT 999990.00
+COL step_time       HEADING 'Step|Secs'             FORMAT 9999990.00
+COL compile_time    HEADING 'Compile|Secs'          FORMAT 9999990.00
 COL compile_count   HEADING 'Compile|Count'
 COL execute_count   HEADING 'Execute|Count'
 col ae_reuse_stmt   HEADING 'AE|ReUse|Stmt'         FORMAT a5

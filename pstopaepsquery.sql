@@ -43,9 +43,9 @@ END;
 column qryname  heading 'Query|Name'
 column execs    heading 'Number of|Executions'
 column sum_secs heading 'Total|Execution|Time (s)'
-column avg_secs heading 'Average|Execution|Time (s)' format 99999.9
-column med_secs heading 'Median|Execution|Time (s)'  format 99999.9
-column var_secs heading 'Variance|Execution|Time (s)'  format 99999.9
+column avg_secs heading 'Average|Execution|Time (s)'   format 999990.0
+column med_secs heading 'Median|Execution|Time (s)'    format 999990.0
+column var_secs heading 'Variance|Execution|Time (s)'  format 999990.0
 column max_secs heading 'Maximum|Execution|Time (s)'
 
 DEF piex="Query Name"
