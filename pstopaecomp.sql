@@ -95,6 +95,8 @@ COL process_name    HEADING 'Process|Name'
 COL detail_id       HEADING 'Statement ID'   
 COL step_time       HEADING 'Step|Secs'             FORMAT 99999990.00
 COL compile_time    HEADING 'Compile|Secs'          FORMAT 99999990.00
+COL compile_count   HEADING 'Compile|Count'         
+COL execute_count   HEADING 'Execute|Count'         
 col ae_reuse_stmt   HEADING 'AE|ReUse|Stmt'         FORMAT a5
 col noquotes        heading 'NoQuotes|Keyword|Used' format a8
 col sqltext         heading 'AE Statement Text'     format a100 
