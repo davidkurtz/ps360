@@ -46,8 +46,8 @@ COLUMN report_id     heading 'Report|ID'                    FORMAT a8
 COLUMN business_unit heading 'Business|Unit'                FORMAT a5 
 COLUMN execs         heading 'Number of|Executions'
 COLUMN sum_secs      heading 'Total|Execution|Time (s)'
-COLUMN avg_secs      heading 'Average|Execution|Time (s)'   FORMAT 9999990.0
-COLUMN med_secs      heading 'Median|Execution|Time (s)'    FORMAT 9999990.0
+COLUMN avg_secs      heading 'Average|Execution|Time (s)'   FORMAT   9999990.0
+COLUMN med_secs      heading 'Median|Execution|Time (s)'    FORMAT   9999990.0
 COLUMN var_secs      heading 'Variance|Execution|Time (s)'  FORMAT 999999990.0
 COLUMN max_secs      heading 'Maximum|Execution|Time (s)'
 
