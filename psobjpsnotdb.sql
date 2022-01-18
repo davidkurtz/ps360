@@ -9,7 +9,7 @@ DEF descrlong = 'Object in PeopleSoft Data Dictionary but not in Oracle Database
 BEGIN
   :sql_text := '
 WITH x AS (
-SELECT r.*
+SELECT r.recname, r.rectype, r.sqltablename
 ,      DECODE(r.rectype,0,''TABLE'',1,''VIEW'',6,''QUERY VIEW'',7,''TEMPORARY TABLE'') rectype_desc
 ,      DECODE(r.sqltablename,'' '',''PS_''||r.recname,r.sqltablename) object_name
 ,      CASE WHEN r.rectype IN(0,7) THEN ''TABLE''
@@ -18,8 +18,8 @@ SELECT r.*
        END as object_type
 FROM   psrecdefn r
 WHERE  r.rectype IN(0 /*TABLES*/, 1 /*views*/, 6 /*QUERY VIEWS*/, 7 /*TEMPORARY TABLE*/)
-UNION ALL
-SELECT r.*
+UNION
+SELECT r.recname, r.rectype, r.sqltablename
 ,      DECODE(r.rectype,0,''TABLE'',1,''VIEW'',6,''QUERY VIEW'',7,''TEMPORARY TABLE'') rectype_desc
 ,      DECODE(r.sqltablename,'' '',''PS_''||r.recname,r.sqltablename) object_name
 ,      ''MATERIALIZED VIEW'' object_type
