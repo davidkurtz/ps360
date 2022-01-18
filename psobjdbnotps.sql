@@ -27,7 +27,7 @@ WHERE  (n.n = 0 OR (r.rectype = 7 /*TEMPORARY TABLE*/ AND n.n <= NVL(c.temptblin
 AND    r.rectype IN(0,1,6,7)
 MINUS
 SELECT ''INDEX'' object_type
-,      ''PS_''||DECODE(r.sqltablename, '' '', r.recname,r.sqltablename)||DECODE(n.n,0,'''',n.n) table_name
+,      ''PS_''||DECODE(r.sqltablename, '' '', r.recname, ''PS_''||r.recname, r.recname, r.sqltablename)||DECODE(n.n,0,'''',n.n) table_name
 FROM   n
 ,      psrecdefn r
        LEFT OUTER JOIN pstemptblcntvw c ON r.recname = c.recname
@@ -40,7 +40,7 @@ and    bitand(f.useedit,3)>0
 MINUS 
 SELECT ''INDEX'' object_type
 ,      ''PS''||CHR(47+row_number() over (partition by r.recname, n.n ORDER BY f.fieldnum))
-           ||DECODE(r.sqltablename, '' '', r.recname,r.sqltablename)||DECODE(n.n,0,'''',n.n) table_name
+             ||DECODE(r.sqltablename, '' '', r.recname, ''PS_''||r.recname, r.recname, r.sqltablename)||DECODE(n.n,0,'''',n.n) table_name
 FROM   n
 ,      psrecdefn r
        LEFT OUTER JOIN pstemptblcntvw c ON r.recname = c.recname
@@ -52,7 +52,7 @@ AND    r.recname = f.recname
 and    bitand(f.useedit,16)>0
 MINUS
 SELECT ''INDEX'' object_type
-,      ''PS''||i.indexid||DECODE(r.sqltablename, '' '', r.recname,r.sqltablename)||DECODE(n.n,0,'''',n.n) table_name
+,      ''PS''||i.indexid||DECODE(r.sqltablename, '' '', r.recname, ''PS_''||r.recname, r.recname, r.sqltablename)||DECODE(n.n,0,'''',n.n) table_name
 FROM   n
 ,      psrecdefn r
        LEFT OUTER JOIN pstemptblcntvw c ON r.recname = c.recname
