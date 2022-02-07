@@ -17,7 +17,7 @@ WHERE  o.object_type IN(''TABLE'',''VIEW'',''MATERIALIZED VIEW'')
 AND    o.owner = ''&&ownerid''
 AND    NOT object_name IN(''MV_CAPABILITIES_TABLE'')
 MINUS
-SELECT ''TABLE'' object_type
+SELECT CASE WHEN rectype IN(0,7) THEN ''TABLE'' ELSE ''VIEW'' END as object_type
 ,      DECODE(r.sqltablename, '' '', ''PS_''||r.recname,r.sqltablename)||DECODE(n.n,0,'''',n.n) table_name
 FROM   n
 ,      psrecdefn r
