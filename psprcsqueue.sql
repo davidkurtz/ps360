@@ -30,7 +30,7 @@ END;
 COLUMN row_num              HEADING 'Stmt|Rank'                   NEW_VALUE row_num
 COLUMN queue_dttm           HEADING 'Time|Enqueued'
 COLUMN servername           HEADING 'Server|Name'
-COLUMN queue_secs           HEADING 'Queuing|Time (S)'
+COLUMN queue_secs           HEADING 'Queuing|Time (s)'
 
 
 DEF piex="Statement ID"
@@ -73,6 +73,7 @@ SELECT row_num
 , TO_CHAR(queue_dttm,''&&datetimefmt'') queue_dttm
 , servernamerun, queue_secs, prcstype, prcsname, oprid, runcntlid
 FROM   y
+WHERE rownum <= 1e6
 '; 
 END;				
 /

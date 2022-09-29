@@ -94,9 +94,9 @@ DEF date_filter_sql="AND enddttm>=ADD_MONTHS(SYSDATE,-1)"
 DEF date_filter_desc="(1 month)"
 DEF date_filter_suffix="_1m"
 @@pstopprcs
-DEF date_filter_sql=""
-DEF date_filter_desc="(All)"
-DEF date_filter_suffix=""
+DEF date_filter_sql="AND enddttm>=ADD_MONTHS(SYSDATE,-12)"
+DEF date_filter_desc="(1 year)"
+DEF date_filter_suffix="_1y"
 @@pstopprcs
 
 SPOOL &&ps360_main_report..html APP
@@ -113,9 +113,9 @@ DEF date_filter_sql="AND enddttm>=ADD_MONTHS(SYSDATE,-1)"
 DEF date_filter_desc="(1 month)"
 DEF date_filter_suffix="_1m"
 @@psprcsqueue
-DEF date_filter_sql=""
-DEF date_filter_desc="(All)"
-DEF date_filter_suffix=""
+DEF date_filter_sql="AND enddttm>=ADD_MONTHS(SYSDATE,-12)"
+DEF date_filter_desc="(1 year)"
+DEF date_filter_suffix="_1y"
 @@psprcsqueue
 
 SPOOL &&ps360_main_report..html APP
@@ -136,9 +136,9 @@ DEF date_filter_sql="enddttm>=ADD_MONTHS(SYSDATE,-3)"
 DEF date_filter_desc="(3 months)"
 DEF date_filter_suffix="_3m"
 REM @@psprcsmap
-DEF date_filter_sql="1=1"
-DEF date_filter_desc="(All)"
-DEF date_filter_suffix=""
+DEF date_filter_sql="AND enddttm>=ADD_MONTHS(SYSDATE,-12)"
+DEF date_filter_desc="(1 year)"
+DEF date_filter_suffix="_1y"
 @@psprcsmap
 
 SPOOL &&ps360_main_report..html APP
@@ -163,9 +163,9 @@ DEF date_filter_sql="WHERE enddttm>=ADD_MONTHS(SYSDATE,-1)"
 DEF date_filter_desc="(1 month)"
 DEF date_filter_suffix="_1m"
 @@pstopae
-DEF date_filter_sql=""
-DEF date_filter_desc="(All)"
-DEF date_filter_suffix=""
+DEF date_filter_sql="AND enddttm>=ADD_MONTHS(SYSDATE,-12)"
+DEF date_filter_desc="(1 year)"
+DEF date_filter_suffix="_1y"
 @@pstopae
 
 SPOOL &&ps360_main_report..html APP
@@ -190,9 +190,9 @@ DEF date_filter_sql="AND enddttm>=ADD_MONTHS(SYSDATE,-1)"
 DEF date_filter_desc="(1 month)"
 DEF date_filter_suffix="_1m"
 @@pstopaestep
-DEF date_filter_sql=""
-DEF date_filter_desc="(All)"
-DEF date_filter_suffix=""
+DEF date_filter_sql="AND enddttm>=ADD_MONTHS(SYSDATE,-12)"
+DEF date_filter_desc="(1 year)"
+DEF date_filter_suffix="_1y"
 @@pstopaestep
 
 SPOOL &&ps360_main_report..html APP
@@ -220,9 +220,9 @@ DEF date_filter_sql="AND enddttm>=ADD_MONTHS(SYSDATE,-1)"
 DEF date_filter_desc="(1 month)"
 DEF date_filter_suffix="_1m"
 @@pstopaecomp
-DEF date_filter_sql=""
-DEF date_filter_desc="(All)"
-DEF date_filter_suffix=""
+DEF date_filter_sql="AND enddttm>=ADD_MONTHS(SYSDATE,-12)"
+DEF date_filter_desc="(1 year)"
+DEF date_filter_suffix="_1y"
 @@pstopaecomp
 
 SPOOL &&ps360_main_report..html APP
@@ -247,9 +247,9 @@ DEF date_filter_sql="AND r.enddttm>=ADD_MONTHS(SYSDATE,-1)"
 DEF date_filter_desc="(1 month)"
 DEF date_filter_suffix="_1m"
 @@pstopaepsquery
-DEF date_filter_sql=""
-DEF date_filter_desc="(All)"
-DEF date_filter_suffix=""
+DEF date_filter_sql="AND enddttm>=ADD_MONTHS(SYSDATE,-12)"
+DEF date_filter_desc="(1 year)"
+DEF date_filter_suffix="_1y"
 @@pstopaepsquery
 
 SPOOL &&ps360_main_report..html APP
@@ -274,9 +274,9 @@ DEF date_filter_sql="AND r.enddttm>=ADD_MONTHS(SYSDATE,-1)"
 DEF date_filter_desc="(1 month)"
 DEF date_filter_suffix="_1m"
 @@psnvstop
-DEF date_filter_sql=""
-DEF date_filter_desc="(All)"
-DEF date_filter_suffix=""
+DEF date_filter_sql="AND enddttm>=ADD_MONTHS(SYSDATE,-12)"
+DEF date_filter_desc="(1 year)"
+DEF date_filter_suffix="_1y"
 @@psnvstop
 
 
