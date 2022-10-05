@@ -73,7 +73,7 @@ SELECT row_num
 , TO_CHAR(queue_dttm,''&&datetimefmt'') queue_dttm
 , servernamerun, queue_secs, prcstype, prcsname, oprid, runcntlid
 FROM   y
-WHERE rownum <= 1e6
+WHERE rownum <= 1e5
 '; 
 END;				
 /
