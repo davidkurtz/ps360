@@ -13,7 +13,8 @@ SELECT DISTINCT dbname FROM ps.psdbowner
 SELECT r.prcstype, r.prcsname, r.runstatus
 ,      CAST(r.begindttm AS DATE) begindttm
 ,      DECODE(r.runstatus,''7'',SYSDATE,CAST(r.enddttm AS DATE)) enddttm
-FROM   psprcsrqst r
+FROM   d
+,      psprcsrqst r
 WHERE  r.dbname = d.dbname
 AND    r.begindttm < DECODE(r.runstatus,''7'',sysdate,r.enddttm)
 AND    r.runstatus IN(''7'',''9'',''11'',''14'') &&date_filter_sql
