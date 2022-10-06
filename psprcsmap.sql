@@ -9,17 +9,20 @@ DEF maxrows = 10000
 
 BEGIN
   :sql_text := '
-WITH x as (
-SELECT p.prcsname, p.prcstype, p.prcsinstance
-,      p.prcsinstance||'':''||p.oprid||'':''||p.runcntlid tooltip
-,      CAST(p.begindttm AS DATE) begindttm
-,      CASE p.runstatus 
+WITH d AS (
+SELECT DISTINCT dbname FROM ps.psdbowner
+), x as (
+SELECT r.prcsname, r.prcstype, r.prcsinstance
+,      r.prcsinstance||'':''||r.oprid||'':''||r.runcntlid tooltip
+,      CAST(r.begindttm AS DATE) begindttm
+,      CASE r.runstatus 
          WHEN ''7'' THEN sysdate
-         ELSE CAST(p.enddttm AS DATE) 
+         ELSE CAST(r.enddttm AS DATE) 
        END AS enddttm
-FROM   psprcsrqst p
-WHERE  (p.runstatus = ''7'' OR &&date_filter_sql)
-AND    p.begindttm IS NOT NULL
+FROM   psprcsrqst r, d
+WHERE  r.dbname = d.dbname
+AND    (r.runstatus = ''7'' OR &&date_filter_sql)
+AND    r.begindttm IS NOT NULL
 ), q AS (
 SELECT x.*
 ,      row_number() over (order by x.begindttm DESC) row_num

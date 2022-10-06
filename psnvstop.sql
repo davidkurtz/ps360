@@ -8,16 +8,20 @@ DEF report_abstract_2 = '<br>';
 
 BEGIN
   :sql_text_stub := '
-WITH x AS (
+WITH d AS (
+SELECT DISTINCT dbname FROM ps.psdbowner
+), x AS (
 SELECT r.prcsinstance
 ,      r.oprid
 ,      CAST(begindttm AS DATE) begindttm
 ,      CAST(enddttm AS DATE) enddttm
 ,      SUBSTR(REGEXP_SUBSTR(p.origparmlist,''-NRN[^ ]+'',1,1,''i''),5) report_id
 ,      SUBSTR(REGEXP_SUBSTR(p.origparmlist,''-NBU[^ ]+'',1,1,''i''),5) business_unit
-FROM   psprcsrqst r
+FROM   d
+,      psprcsrqst r
 ,      psprcsparms p
-WHERE  r.prcstype like ''nVision%''
+WHERE  r.dbname = d.dbname
+AND    r.prcstype like ''nVision%''
 AND    r.enddttm>=r.begindttm
 AND    r.prcsinstance = p.prcsinstance
 AND    p.origparmlist like ''%-NRN%'' &&date_filter_sql

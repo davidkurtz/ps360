@@ -8,20 +8,23 @@ DEF charttype= "ScatterChart";
 
 BEGIN
   :sql_text_stub := '
-WITH x AS (
-SELECT prcsinstance, prcstype, prcsname, oprid, runcntlid, servernamerun
-,      CAST(GREATEST(rqstdttm, rundttm) AS DATE) queue_dttm
-,      CAST(begindttm AS DATE) begindttm
-from   psprcsrqst
-where  begindttm IS NOT NULL &&date_filter_sql
-and    prcstype != ''PSJob''
+WITH d AS (
+SELECT DISTINCT dbname FROM ps.psdbowner
+), x AS (
+SELECT r.prcsinstance, r.prcstype, r.prcsname, r.oprid, r.runcntlid, r.servernamerun
+,      CAST(GREATEST(r.rqstdttm, r.rundttm) AS DATE) queue_dttm
+,      CAST(r.begindttm AS DATE) begindttm
+FROM   psprcsrqst r, d
+WHERE  r.dbname = d.dbname
+AND    r.begindttm IS NOT NULL &&date_filter_sql
+AND    r.prcstype != ''PSJob''
 ), y AS(
-select row_number() over (order by begindttm) as row_num
+SELECT row_number() OVER (ORDER BY begindttm) as row_num
 ,      queue_dttm
 ,      servernamerun
 ,      (begindttm-queue_dttm)*86400 queue_secs
 ,      prcstype, prcsname, oprid, runcntlid
-from   x
+FROM   x
 ORDER BY row_num
 )';
 END;

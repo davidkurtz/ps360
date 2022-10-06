@@ -7,14 +7,17 @@ DEF descrlong = 'Process Scheduler Requests, aggregated and profiled by total ti
 
 BEGIN
   :sql_text_stub := '
-WITH a AS (
-SELECT prcstype, prcsname, runstatus
-,      CAST(begindttm AS DATE) begindttm
-,      DECODE(runstatus,''7'',SYSDATE,CAST(enddttm AS DATE)) enddttm
-FROM   psprcsrqst
-WHERE  begindttm < DECODE(runstatus,''7'',sysdate,enddttm)
-AND    runstatus IN(''7'',''9'',''11'',''14'') &&date_filter_sql
-AND    prcstype != ''PSJob''
+WITH d AS (
+SELECT DISTINCT dbname FROM ps.psdbowner
+), a AS (
+SELECT r.prcstype, r.prcsname, r.runstatus
+,      CAST(r.begindttm AS DATE) begindttm
+,      DECODE(r.runstatus,''7'',SYSDATE,CAST(r.enddttm AS DATE)) enddttm
+FROM   psprcsrqst r
+WHERE  r.dbname = d.dbname
+AND    r.begindttm < DECODE(r.runstatus,''7'',sysdate,r.enddttm)
+AND    r.runstatus IN(''7'',''9'',''11'',''14'') &&date_filter_sql
+AND    r.prcstype != ''PSJob''
 ), b AS (
 SELECT prcstype, prcsname
 ,      COUNT(*) executions

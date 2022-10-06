@@ -8,14 +8,18 @@ DEF report_abstract_2 = '<br>Batch timings used if available, otherwise timings 
 
 BEGIN
   :sql_text_stub := '
-WITH r AS (
+WITH d AS (
+SELECT DISTINCT dbname FROM ps.psdbowner
+), r AS (
 SELECT r.prcsinstance
 ,      CAST(NVL(r.begindttm,l.begindttm) AS DATE) begindttm
 ,      CAST(NVL(r.enddttm  ,l.enddttm  ) AS DATE) enddttm
-FROM   psprcsrqst r
-LEFT OUTER JOIN ps_bat_timings_log l
-ON     l.process_instance = r.prcsinstance
-WHERE  r.prcsname = ''PSQUERY''
+FROM   d
+,      psprcsrqst r
+  LEFT OUTER JOIN ps_bat_timings_log l
+  ON     l.process_instance = r.prcsinstance
+WHERE  p.dbname = t.dbname
+AND    r.prcsname = ''PSQUERY''
 AND    r.runstatus = ''9'' &&date_filter_sql
 ), x AS (
 SELECT r.prcsinstance

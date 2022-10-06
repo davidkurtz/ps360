@@ -28,7 +28,7 @@ COLUMN dbname NEW_VALUE psdbname
 COLUMN ownerid NEW_VALUE sysadm
 SELECT dbname 
 ,      ownerid
-FROM	  ps.psdbowner 
+FROM   ps.psdbowner 
 WHERE  rownum = 1
 /
 DEF ps360_main_report="&&ps_prefix._&&psdbname._0_index";
