@@ -163,7 +163,7 @@ DEF date_filter_sql="WHERE enddttm>=ADD_MONTHS(SYSDATE,-1)"
 DEF date_filter_desc="(1 month)"
 DEF date_filter_suffix="_1m"
 @@pstopae
-DEF date_filter_sql="AND enddttm>=ADD_MONTHS(SYSDATE,-12)"
+DEF date_filter_sql="WHERE enddttm>=ADD_MONTHS(SYSDATE,-12)"
 DEF date_filter_desc="(1 year)"
 DEF date_filter_suffix="_1y"
 @@pstopae
